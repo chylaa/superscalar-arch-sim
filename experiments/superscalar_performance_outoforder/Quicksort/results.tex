@@ -1,0 +1,51 @@
+
+\begin{table}[]
+\centering
+\caption{ Zebrane miary wydajności potoku dla konfiguracji programu \texttt{Quicksort}. }
+\label{tab:results_Quicksort}
+\begin{tabular}{|>{\columncolor[HTML]{EFEFEF}}c|c|>{\columncolor[HTML]{EFEFEF}}c|c|>{\columncolor[HTML]{EFEFEF}}c|cccc|}
+\hline\cellcolor[HTML]{EFEFEF} & & \cellcolor[HTML]{EFEFEF} & &  \cellcolor[HTML]{EFEFEF} & \multicolumn{3}{c|}{$\mathbf{R_{avg}}$} \\ \cline{6-8}
+\multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}\textbf{ID}} & \multirow{-2}{*}{$\mathbf{IPC/S}$} & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}$\mathbf{PD}$} & \multirow{-2}{*}{$\mathbf{S_R}$} & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}$\mathbf{T_{avg}}$}  & \multicolumn{1}{c|}{IF} & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}ID} & \multicolumn{1}{c|}{EX} \\ \hline
+\cellcolor[HTML]{EFEFEF}1 & 0.745 & \cellcolor[HTML]{EFEFEF}25.536 & 1.053 & \cellcolor[HTML]{EFEFEF}9.080 & 1.000 & \cellcolor[HTML]{EFEFEF}0.831 & 0.771 \\ \hline
+\cellcolor[HTML]{EFEFEF}2 & 0.799 & \cellcolor[HTML]{EFEFEF}60.071 & 1.129 & \cellcolor[HTML]{EFEFEF}6.777 & 1.000 & \cellcolor[HTML]{EFEFEF}0.881 & 0.841 \\ \hline
+\cellcolor[HTML]{EFEFEF}3 & 0.796 & \cellcolor[HTML]{EFEFEF}80.092 & 1.126 & \cellcolor[HTML]{EFEFEF}6.822 & 1.000 & \cellcolor[HTML]{EFEFEF}0.880 & 0.841 \\ \hline
+\cellcolor[HTML]{EFEFEF}5 & 0.750 & \cellcolor[HTML]{EFEFEF}25.000 & 1.060 & \cellcolor[HTML]{EFEFEF}16.032 & 1.898 & \cellcolor[HTML]{EFEFEF}0.845 & 0.776 \\ \hline
+\cellcolor[HTML]{EFEFEF}6 & 1.012 & \cellcolor[HTML]{EFEFEF}49.414 & 1.430 & \cellcolor[HTML]{EFEFEF}10.213 & 1.893 & \cellcolor[HTML]{EFEFEF}1.398 & 1.179 \\ \hline
+\cellcolor[HTML]{EFEFEF}7 & 1.053 & \cellcolor[HTML]{EFEFEF}73.674 & 1.489 & \cellcolor[HTML]{EFEFEF}9.623 & 1.890 & \cellcolor[HTML]{EFEFEF}1.459 & 1.244 \\ \hline
+\cellcolor[HTML]{EFEFEF}9 & 0.716 & \cellcolor[HTML]{EFEFEF}28.363 & 1.013 & \cellcolor[HTML]{EFEFEF}17.459 & 3.502 & \cellcolor[HTML]{EFEFEF}0.820 & 0.750 \\ \hline
+\cellcolor[HTML]{EFEFEF}10 & 0.968 & \cellcolor[HTML]{EFEFEF}51.623 & 1.368 & \cellcolor[HTML]{EFEFEF}12.915 & 3.503 & \cellcolor[HTML]{EFEFEF}1.418 & 1.157 \\ \hline
+\cellcolor[HTML]{EFEFEF}11 & 1.086 & \cellcolor[HTML]{EFEFEF}72.842 & 1.536 & \cellcolor[HTML]{EFEFEF}11.184 & 3.482 & \cellcolor[HTML]{EFEFEF}1.762 & 1.414 \\ \hline
+\cellcolor[HTML]{EFEFEF}12 & 1.088 & \cellcolor[HTML]{EFEFEF}86.403 & 1.538 & \cellcolor[HTML]{EFEFEF}11.148 & 3.482 & \cellcolor[HTML]{EFEFEF}1.778 & 1.419 \\ \hline
+\cellcolor[HTML]{EFEFEF}14 & 0.978 & \cellcolor[HTML]{EFEFEF}51.090 & 1.383 & \cellcolor[HTML]{EFEFEF}13.555 & 4.606 & \cellcolor[HTML]{EFEFEF}1.423 & 1.165 \\ \hline
+\cellcolor[HTML]{EFEFEF}15 & 1.109 & \cellcolor[HTML]{EFEFEF}72.286 & 1.567 & \cellcolor[HTML]{EFEFEF}11.981 & 4.627 & \cellcolor[HTML]{EFEFEF}1.849 & 1.453 \\ \hline
+\cellcolor[HTML]{EFEFEF}16 & 1.102 & \cellcolor[HTML]{EFEFEF}86.225 & 1.558 & \cellcolor[HTML]{EFEFEF}12.066 & 4.623 & \cellcolor[HTML]{EFEFEF}1.884 & 1.458 \\ \hline
+\cellcolor[HTML]{EFEFEF}19 & 1.119 & \cellcolor[HTML]{EFEFEF}72.023 & 1.582 & \cellcolor[HTML]{EFEFEF}12.406 & 5.328 & \cellcolor[HTML]{EFEFEF}1.870 & 1.467 \\ \hline
+\cellcolor[HTML]{EFEFEF}20 & 1.131 & \cellcolor[HTML]{EFEFEF}85.866 & 1.598 & \cellcolor[HTML]{EFEFEF}12.287 & 5.329 & \cellcolor[HTML]{EFEFEF}1.938 & 1.497 \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{ Wykorzystanie buforów dla dla konfiguracji programu \texttt{Quicksort}. }
+\label{tab:buffers_Quicksort}
+\begin{tabular}{|c|cc|cc|cc|cc|cc|}
+\hline& \multicolumn{2}{c|}{\textbf{ROB}} & \multicolumn{2}{c|}{\textbf{IQ}} & \multicolumn{2}{c|}{$\mathbf{RS_{Branch}}$} & \multicolumn{2}{c|}{$\mathbf{RS_{Int}}$} & \multicolumn{2}{c|}{$\mathbf{RS_{Mem}}$} \\ \cline{2-11}
+\multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}\textbf{ID}} & $\mathbf{B_{avg}}$ & \cellcolor[HTML]{EFEFEF}$\mathbf{B_{full}}$ & $\mathbf{B_{avg}}$ & \cellcolor[HTML]{EFEFEF}$\mathbf{B_{full}}$ & $\mathbf{B_{avg}}$ & \cellcolor[HTML]{EFEFEF}$\mathbf{B_{full}}$ & $\mathbf{B_{avg}}$ & \cellcolor[HTML]{EFEFEF}$\mathbf{B_{full}}$ & $\mathbf{B_{avg}}$ & \cellcolor[HTML]{EFEFEF}$\mathbf{B_{full}}$ \\ \hline
+1 & 37.010 & \cellcolor[HTML]{EFEFEF}0.000 & 23.450 & \cellcolor[HTML]{EFEFEF}2.575 & 21.750 & \cellcolor[HTML]{EFEFEF}4.178 & 52.125 & \cellcolor[HTML]{EFEFEF}2.509 & 18.650 & \cellcolor[HTML]{EFEFEF}0.003 \\ \hline
+2 & 15.785 & \cellcolor[HTML]{EFEFEF}0.000 & 11.500 & \cellcolor[HTML]{EFEFEF}0.000 & 18.725 & \cellcolor[HTML]{EFEFEF}0.000 & 21.713 & \cellcolor[HTML]{EFEFEF}0.000 & 8.388 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+3 & 8.867 & \cellcolor[HTML]{EFEFEF}0.000 & 11.513 & \cellcolor[HTML]{EFEFEF}0.000 & 18.900 & \cellcolor[HTML]{EFEFEF}0.000 & 11.006 & \cellcolor[HTML]{EFEFEF}0.000 & 4.219 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+5 & 38.350 & \cellcolor[HTML]{EFEFEF}0.000 & 55.594 & \cellcolor[HTML]{EFEFEF}21.385 & 22.500 & \cellcolor[HTML]{EFEFEF}4.312 & 54.400 & \cellcolor[HTML]{EFEFEF}2.528 & 18.975 & \cellcolor[HTML]{EFEFEF}0.003 \\ \hline
+6 & 37.490 & \cellcolor[HTML]{EFEFEF}0.000 & 20.538 & \cellcolor[HTML]{EFEFEF}1.238 & 44.725 & \cellcolor[HTML]{EFEFEF}4.238 & 52.788 & \cellcolor[HTML]{EFEFEF}7.932 & 18.575 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+7 & 21.578 & \cellcolor[HTML]{EFEFEF}0.000 & 14.537 & \cellcolor[HTML]{EFEFEF}0.890 & 46.375 & \cellcolor[HTML]{EFEFEF}9.202 & 27.481 & \cellcolor[HTML]{EFEFEF}0.264 & 9.475 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+9 & 35.940 & \cellcolor[HTML]{EFEFEF}0.000 & 52.042 & \cellcolor[HTML]{EFEFEF}37.357 & 21.025 & \cellcolor[HTML]{EFEFEF}4.521 & 50.800 & \cellcolor[HTML]{EFEFEF}2.545 & 18.000 & \cellcolor[HTML]{EFEFEF}0.002 \\ \hline
+10 & 38.110 & \cellcolor[HTML]{EFEFEF}0.000 & 40.017 & \cellcolor[HTML]{EFEFEF}14.505 & 46.975 & \cellcolor[HTML]{EFEFEF}5.371 & 53.050 & \cellcolor[HTML]{EFEFEF}8.039 & 18.750 & \cellcolor[HTML]{EFEFEF}0.002 \\ \hline
+11 & 30.781 & \cellcolor[HTML]{EFEFEF}0.000 & 22.233 & \cellcolor[HTML]{EFEFEF}7.332 & 65.500 & \cellcolor[HTML]{EFEFEF}27.603 & 39.775 & \cellcolor[HTML]{EFEFEF}2.593 & 13.106 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+12 & 16.576 & \cellcolor[HTML]{EFEFEF}0.000 & 21.446 & \cellcolor[HTML]{EFEFEF}7.236 & 66.250 & \cellcolor[HTML]{EFEFEF}34.748 & 20.303 & \cellcolor[HTML]{EFEFEF}0.000 & 6.644 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+14 & 37.960 & \cellcolor[HTML]{EFEFEF}0.000 & 38.931 & \cellcolor[HTML]{EFEFEF}19.779 & 46.950 & \cellcolor[HTML]{EFEFEF}5.761 & 52.587 & \cellcolor[HTML]{EFEFEF}8.164 & 18.837 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+15 & 32.058 & \cellcolor[HTML]{EFEFEF}0.000 & 26.578 & \cellcolor[HTML]{EFEFEF}12.018 & 67.200 & \cellcolor[HTML]{EFEFEF}30.473 & 41.644 & \cellcolor[HTML]{EFEFEF}4.111 & 13.688 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+16 & 18.441 & \cellcolor[HTML]{EFEFEF}0.000 & 23.363 & \cellcolor[HTML]{EFEFEF}12.143 & 72.425 & \cellcolor[HTML]{EFEFEF}46.814 & 22.822 & \cellcolor[HTML]{EFEFEF}0.000 & 7.316 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+19 & 32.369 & \cellcolor[HTML]{EFEFEF}0.000 & 23.067 & \cellcolor[HTML]{EFEFEF}6.776 & 67.525 & \cellcolor[HTML]{EFEFEF}30.963 & 42.181 & \cellcolor[HTML]{EFEFEF}4.733 & 13.769 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+20 & 19.004 & \cellcolor[HTML]{EFEFEF}0.000 & 20.611 & \cellcolor[HTML]{EFEFEF}6.444 & 73.425 & \cellcolor[HTML]{EFEFEF}49.566 & 23.609 & \cellcolor[HTML]{EFEFEF}0.006 & 7.597 & \cellcolor[HTML]{EFEFEF}0.000 \\ \hline
+\end{tabular}
+\end{table}

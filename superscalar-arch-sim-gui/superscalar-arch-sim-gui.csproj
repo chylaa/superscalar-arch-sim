@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0E374A00-60B7-4252-8973-226DB976C7E4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>superscalar_arch_sim_gui</RootNamespace>
+    <AssemblyName>superscalar-arch-sim-gui</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WINx64|AnyCPU'">
+    <OutputPath>bin\WINx64\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemoryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemoryViewer.Designer.cs">
+      <DependentUpon>MemoryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HistPipeDataflowView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HistPipeDataflowView.Designer.cs">
+      <DependentUpon>HistPipeDataflowView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RegisterFileView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RegisterFileView.Designer.cs">
+      <DependentUpon>RegisterFileView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SimSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SimSettings.Designer.cs">
+      <DependentUpon>SimSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Core\Dynamic\ExecuteUnitSetView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\ExecuteUnitSetView.Designer.cs">
+      <DependentUpon>ExecuteUnitSetView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\InstructionQueueView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\InstructionQueueView.Designer.cs">
+      <DependentUpon>InstructionQueueView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\MultiIssueStageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\MultiIssueStageView.Designer.cs">
+      <DependentUpon>MultiIssueStageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\ReorderBufferView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\ReorderBufferView.Designer.cs">
+      <DependentUpon>ReorderBufferView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\ReservationStationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\ReservationStationsView.Designer.cs">
+      <DependentUpon>ReservationStationsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\BufferView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\BufferView.Designer.cs">
+      <DependentUpon>BufferView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BranchPredictorDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BranchPredictorDetails.Designer.cs">
+      <DependentUpon>BranchPredictorDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\ScalarCoreView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\ScalarCoreView.Designer.cs">
+      <DependentUpon>ScalarCoreView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\SuperscalarCoreView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Dynamic\SuperscalarCoreView.Designer.cs">
+      <DependentUpon>SuperscalarCoreView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\ContextMenuDisplayStyleSelection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\ContextMenuDisplayStyleSelection.Designer.cs">
+      <DependentUpon>ContextMenuDisplayStyleSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\ReorderBufferViewNonGenericParent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\ReservationStationsViewNonGenericParent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\ToolStripNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\Datapath.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CustomControls\Datapath.Designer.cs">
+      <DependentUpon>Datapath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\FWDatapath.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\FWDatapath.Designer.cs">
+      <DependentUpon>FWDatapath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IGenericCPUView.cs" />
+    <Compile Include="UserControls\IBindUpdate.cs" />
+    <Compile Include="UserControls\ICPUBindable.cs" />
+    <Compile Include="UserControls\Inspection\SimCountersView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Inspection\SimCountersView.Designer.cs">
+      <DependentUpon>SimCountersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ISimEventsAttachable.cs" />
+    <Compile Include="UserControls\Units\MemoryViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Units\MemoryViewControl.Designer.cs">
+      <DependentUpon>MemoryViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\StageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Core\Static\StageView.Designer.cs">
+      <DependentUpon>StageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Inspection\QuickMemViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Inspection\QuickMemViewer.Designer.cs">
+      <DependentUpon>QuickMemViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Units\BranchPredictorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Units\BranchPredictorView.Designer.cs">
+      <DependentUpon>BranchPredictorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Units\RegisterFileTemplateView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Units\RegisterFileTemplateView.Designer.cs">
+      <DependentUpon>RegisterFileTemplateView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilis\GUIUtilis.cs" />
+    <Compile Include="Utilis\StandardControls.cs" />
+    <Compile Include="Utilis\StandardEntryCollectionView.cs" />
+    <Compile Include="Utilis\StrConverter.cs" />
+    <Compile Include="Utilis\TextFormatting.cs" />
+    <Compile Include="Utilis\UserFilesController.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemoryViewer.resx">
+      <DependentUpon>MemoryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RegisterFileView.resx">
+      <DependentUpon>RegisterFileView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SimSettings.resx">
+      <DependentUpon>SimSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UserControls\Core\Dynamic\ExecuteUnitSetView.resx">
+      <DependentUpon>ExecuteUnitSetView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Dynamic\InstructionQueueView.resx">
+      <DependentUpon>InstructionQueueView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Dynamic\MultiIssueStageView.resx">
+      <DependentUpon>MultiIssueStageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Dynamic\ReorderBufferView.resx">
+      <DependentUpon>ReorderBufferView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Dynamic\ReservationStationsView.resx">
+      <DependentUpon>ReservationStationsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Static\BufferView.resx">
+      <DependentUpon>BufferView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BranchPredictorDetails.resx">
+      <DependentUpon>BranchPredictorDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Static\ScalarCoreView.resx">
+      <DependentUpon>ScalarCoreView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Dynamic\SuperscalarCoreView.resx">
+      <DependentUpon>SuperscalarCoreView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Inspection\SimCountersView.resx">
+      <DependentUpon>SimCountersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Units\MemoryViewControl.resx">
+      <DependentUpon>MemoryViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Core\Static\StageView.resx">
+      <DependentUpon>StageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Inspection\QuickMemViewer.resx">
+      <DependentUpon>QuickMemViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Units\BranchPredictorView.resx">
+      <DependentUpon>BranchPredictorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Units\RegisterFileTemplateView.resx">
+      <DependentUpon>RegisterFileTemplateView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\superscalar-arch-sim\superscalar-arch-sim.csproj">
+      <Project>{5c0d562d-27e6-49e0-9355-02163eed23fc}</Project>
+      <Name>superscalar-arch-sim</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

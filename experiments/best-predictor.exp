@@ -1,0 +1,149 @@
+#SCX
+[ver] = 01
+[settings] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\experiments\.settings\default-core-predictor-settings\"
+[programs] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\rvbin\"
+[outpath] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\experiments\"
+
+# Programs at Scalar Static NotTaken
+# ----------------------------------
+# 	 [3s]  fib -O3
+# 	 [10s] Bubblesort -O3
+# [X][90s] FloatMM -O3
+# 	 [15s] matrix_mul
+# 	 [1s]  list_op -O3
+# 	 [40s] linpack -O3
+# 	 [1s]  Quicksort
+# [X][46s] Treesort
+# 	 [1s]  Treesort -O3
+# -----------------------------------
+# 	 [60s] each [14]scs = 14min 
+
+# [OLP = Short version of]
+# OUT "best_predictor\fib"
+# LP fib -O3
+# [::::::::::::::::]
+# [LSR = Short version of]
+# LS "Default-Static-NotTaken.scs" 
+# SC Scalar
+# RUN
+# SC Superscalar
+# RUN
+# [::::::::::::::::]
+
+# OLP "best_predictor" "fib" "-O3"  
+# LSR -b "Default-Static-NotTaken.scs"
+# LSR -b "Default-Static-Taken.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"
+# 
+# # =============================================================================
+# OLP "best_predictor" "Bubblesort" "-O3"
+# LSR -b "Default-Static-NotTaken.scs"
+# LSR -b "Default-Static-Taken.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"
+# 
+# # =============================================================================
+# OLP "best_predictor" "matrix_mul"
+# LSR -b "Default-Static-NotTaken.scs"
+# LSR -b "Default-Static-Taken.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"
+# 
+# # =============================================================================
+# OLP "best_predictor" "list_op" "-O3"
+# LSR -b "Default-Static-NotTaken.scs"
+# LSR -b "Default-Static-Taken.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"
+
+# =============================================================================
+# OLP "best_predictor" "linpack" "-O3"
+# LSR -b "Default-Static-NotTaken.scs"
+# LSR -d "Default-Static-Taken.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"
+# 
+# # =============================================================================
+# OLP "best_predictor" "Quicksort"
+# LSR -b "Default-Static-NotTaken.scs"
+# LSR -b "Default-Static-Taken.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+# LSR -b "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+# LSR -b "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+# LSR -b "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"
+
+# =============================================================================
+OLP "best_predictor" "Treesort" "-O3"
+LSR -d "Default-Static-NotTaken.scs"
+LSR -d "Default-Static-Taken.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-0addrBits-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-4addrBits-ImmSaturation0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-4addrBits-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-8Pattern0-8addrBits-ImmSaturation4.scs"
+LSR -d "Default-BranchHistoryTable-2addrBit-ImmSaturation0.scs"
+LSR -d "Default-BranchHistoryTable-2addrBit-Saturating0.scs"
+LSR -d "Default-BranchHistoryTable-4addrBit-ImmSaturation0.scs"
+LSR -d "Default-BranchHistoryTable-4addrBit-Saturating0.scs"
+LSR -d "Default-BranchHistoryTable-GlobalFSM-ImmSaturation0.scs"
+LSR -d "Default-BranchHistoryTable-GlobalFSM-ImmSaturation4.scs"
+LSR -d "Default-BranchHistoryTable-GlobalFSM-Saturating0.scs"
+LSR -d "Default-BranchHistoryTable-GlobalFSM-Saturating4.scs"

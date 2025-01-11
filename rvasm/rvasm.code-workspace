@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.rmd": "markdown",
+			"string.h": "c",
+			"strings.h": "c",
+			"array": "c",
+			"string_view": "c",
+			"ranges": "c",
+			"type_traits": "c",
+			"math.h": "c",
+			"features.h": "c",
+			"stdint.h": "c",
+			"stdint-gcc.h": "c",
+			"stddef.h": "c",
+			"stdio.h": "c",
+			"fastmath.h": "c",
+			"malloc.h": "c",
+			"ieeefp.h": "c",
+			"float.h": "c",
+			"random": "c"
+		}
+	}
+}

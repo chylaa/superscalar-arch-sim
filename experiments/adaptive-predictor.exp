@@ -1,0 +1,59 @@
+#SCX
+[ver] = 01
+[settings] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\experiments\.settings\default-core-predictor-settings\"
+[programs] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\rvbin\"
+[outpath] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\experiments\"
+
+# Programs at Scalar Static NotTaken
+# ----------------------------------
+# 	 [3s]  fib -O3
+# 	 [10s] Bubblesort -O3
+# [X][90s] FloatMM -O3
+# 	 [15s] matrix_mul
+# 	 [1s]  list_op -O3
+# 	 [40s] linpack -O3
+# 	 [1s]  Quicksort
+# [X][46s] Treesort
+# 	 [1s]  Treesort -O3
+# -----------------------------------
+
+OLP "adaptive_predictor" "fib" "-O3"  
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"
+ 
+# =============================================================================
+OLP "adaptive_predictor" "Bubblesort" "-O3"
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"
+# 
+# =============================================================================
+OLP "adaptive_predictor" "matrix_mul"
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"
+
+# =============================================================================
+OLP "adaptive_predictor" "list_op" "-O3"
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"
+
+# =============================================================================
+OLP "adaptive_predictor" "linpack" "-O3"
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"
+# 
+# =============================================================================
+OLP "adaptive_predictor" "Quicksort"
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"
+
+# =============================================================================
+OLP "adaptive_predictor" "Treesort" "-O3"
+LSR -d "Default-AdaptivePredictor-2Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-3Pattern0-16addrBit-Saturating0.scs"
+LSR -d "Default-AdaptivePredictor-4Pattern0-16addrBit-Saturating0.scs"

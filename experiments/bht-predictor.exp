@@ -1,0 +1,60 @@
+#SCX
+[ver] = 01
+[settings] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\experiments\.settings\default-core-predictor-settings\"
+[programs] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\rvbin\"
+[outpath] = "C:\Users\Dell\Desktop\Magister\Superscalar_Processor_Simulator\Project\experiments\"
+
+OLP "bht_predictor" "fib" "-O3"  
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
+ 
+# =============================================================================
+OLP "bht_predictor" "Bubblesort" "-O3"
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
+
+# =============================================================================
+OLP "bht_predictor" "matrix_mul"
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
+
+# =============================================================================
+OLP "bht_predictor" "list_op" "-O3"
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
+
+# =============================================================================
+OLP "bht_predictor" "linpack" "-O3"
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
+# 
+# =============================================================================
+OLP "bht_predictor" "Quicksort"
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
+
+# =============================================================================
+OLP "bht_predictor" "Treesort" "-O3"
+LSR -d Default-BranchHistoryTable-GlobalFSM-Saturating0.scs
+LSR -d Default-BranchHistoryTable-2addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-4addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-8addrBit-Saturating0.scs
+LSR -d Default-BranchHistoryTable-16addrBit-Saturating0.scs
