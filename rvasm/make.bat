@@ -30,6 +30,8 @@ set "ldout=%~n1.elf"
 set "binoutdir=%~dp0\..\rvbin\%~n1\"	
 set "optimlvl="
 
+setlocal
+
 if "%src%" == ""  ( goto :help )
 
 set "optemp=%2"
@@ -112,7 +114,7 @@ if "%src:~-2%" == ".s" (
 :INVALIDFILE
 : if given src is not .c or .s file
 echo Error: %src% is not a .c or .s file
-goto :EOF
+goto :EOFEXIT
 
 :ERRLVL
 if %errorlevel% neq 0 (
@@ -131,7 +133,7 @@ if defined arg_nodata (
     echo Merging .text and.data bytes into single ^*.text file 
     if %errorlevel% neq 0 (
         echo Error: Extracting raw bytes with objcopy failed.
-        goto :EOF
+        goto :EOFEXIT
     ) else (
         copy /B/Y %~n1.text + %~n1.data %~n1.text
     )
@@ -160,7 +162,7 @@ if not defined arg_nodasm (
 
     if %errorlevel% neq 0 (
         echo Error: Disassembling failed.
-        goto :EOF
+        goto :EOFEXIT
     ) else (
         if not defined arg_nshow (
             start %texteditor% %binoutdir%%~n1_disasm.txt
@@ -190,7 +192,8 @@ if not defined arg_nclean (
 )
 
 
-:EOF
+:EOFEXIT
+endlocal
 exit /b
 
 :argunknown
@@ -211,5 +214,5 @@ exit /b
     echo    --nodata : do not create separate "*.data" file - append .data section to eof "*.text"
     echo    --outelf : copy intermediate output "*.elf" file to out directory before removing it
     echo    --fplib  : link with "RVfplib" optimized for performance, floating-point library
-    echo    --help   : show this help
-    goto :EOF
+    echo    --help   : show this message and exit
+    goto :EOFEXIT
