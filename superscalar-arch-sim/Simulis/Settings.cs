@@ -35,6 +35,8 @@ namespace superscalar_arch_sim.Simulis
         /// Store value to first consecutive Load that loads it from the same address.
         /// </summary>
         public static bool Dynamic_BypassStoreLoad { get; set; } = true;
+        /// <summary>If set to true, breaks dispatch bundle on illegal instructions and continues execution.</summary>
+        public static bool Dynamic_DispatchIgnoreIllegalInstructions { get; set; } = true;
 
         public static bool Dynamic_AllowSpeculativeLoads { get; set; } = false;
         public static bool Dynamic_WriteCommonDataBusFromExecute { get; set; } = false;
@@ -206,6 +208,8 @@ namespace superscalar_arch_sim.Simulis
                 Dynamic_AllowSpeculativeLoads = bool.Parse(allowSpeculativeLoads);
             if (values.TryGetValue(nameof(Dynamic_WriteCommonDataBusFromExecute), out var writeCommonDataBus))
                 Dynamic_WriteCommonDataBusFromExecute = bool.Parse(writeCommonDataBus);
+            if (values.TryGetValue(nameof(Dynamic_DispatchIgnoreIllegalInstructions), out var dispatchIgnoreIllegal))
+                Dynamic_DispatchIgnoreIllegalInstructions = bool.Parse(dispatchIgnoreIllegal);
             return true;
         }
         public static bool ExportSettings(string path)
@@ -218,6 +222,7 @@ namespace superscalar_arch_sim.Simulis
                 content += $"{nl}{nameof(Dynamic_BypassStoreLoad)}={Dynamic_BypassStoreLoad}";
                 content += $"{nl}{nameof(Dynamic_AllowSpeculativeLoads)}={Dynamic_AllowSpeculativeLoads}";
                 content += $"{nl}{nameof(Dynamic_WriteCommonDataBusFromExecute)}={Dynamic_WriteCommonDataBusFromExecute}";
+                content += $"{nl}{nameof(Dynamic_DispatchIgnoreIllegalInstructions)}={Dynamic_DispatchIgnoreIllegalInstructions}";
                 content += $"{nl}{nameof(ThrowOnExecuteOverflow)}={ThrowOnExecuteOverflow}";
                 content += $"{nl}{nameof(ThrowOnExecuteZeroDivision)}={ThrowOnExecuteZeroDivision}";
                 content += $"{nl}{nameof(BranchPredictionEnabled)}={BranchPredictionEnabled}";

@@ -228,6 +228,10 @@ namespace superscalar_arch_sim.RV32.Hardware.CPU
         }
         public void Reset(bool preserveMemory)
         {
+            ROM.ResizeMemory(Settings.OriginROMAddress, Settings.ROMBytesLength, reset: false);
+            RAM.ResizeMemory(Settings.OriginRAMAddress, Settings.RAMBytesLength, reset: false);
+            MMU.ThrowIfMemoryComponentsOverlaps(); // can throw!
+
             if (!preserveMemory)
                 MMU.Reset();
 

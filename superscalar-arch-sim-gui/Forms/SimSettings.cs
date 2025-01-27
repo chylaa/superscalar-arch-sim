@@ -14,6 +14,11 @@ namespace superscalar_arch_sim_gui.Forms
 {
     public partial class SimSettings : Form
     {
+        public const int MAX_FUNCTIONAL_UNITS = 32;
+        public const int MAX_RESERVATION_STATIONS = 128;
+        public const int MAX_ROB_ENTRIES = (MAX_FUNCTIONAL_UNITS * MAX_RESERVATION_STATIONS);
+        public const int MAX_INSTRUCTION_QUEUE_CAPACITY = (MAX_FUNCTIONAL_UNITS * MAX_RESERVATION_STATIONS);
+
         public const string DefaultLogpath = "..\\..\\..\\logs\\";
 
         private List<CheckBox> DataCollectionCheckBoxes = null;
@@ -38,10 +43,10 @@ namespace superscalar_arch_sim_gui.Forms
             MEMRSNumUpDown.ValueChanged += RSNumUpDown_ValueChanged;
             INTRSNumUpDown.ValueChanged += RSNumUpDown_ValueChanged;
 
-            MEMFUNumUpDown.Maximum = INTFUNumUpDown.Maximum = 8;
-            MEMRSNumUpDown.Maximum = INTRSNumUpDown.Maximum = 128;
-            RobEntriesNumUpDown.Maximum = 1024;
-            InstrQueueCapNumUpDown.Maximum = 1024;
+            MEMFUNumUpDown.Maximum = INTFUNumUpDown.Maximum = MAX_FUNCTIONAL_UNITS;
+            MEMRSNumUpDown.Maximum = INTRSNumUpDown.Maximum = MAX_RESERVATION_STATIONS;
+            RobEntriesNumUpDown.Maximum = MAX_ROB_ENTRIES;
+            InstrQueueCapNumUpDown.Maximum = MAX_INSTRUCTION_QUEUE_CAPACITY;
 
             var addrNumUpDowns = GUIUtilis.GetAllDirectChildrenOfType<NumericUpDown>(AddressSpaceGroupBox);
             addrNumUpDowns.ForEach(nud => nud.Maximum = new decimal(UInt32.MaxValue));
@@ -83,7 +88,8 @@ namespace superscalar_arch_sim_gui.Forms
                 fu.ValueChanged += delegate
                 {
                     rs.Increment = fu.Value;
-                    rs.Value = superscalar_arch_sim.Utilis.Utilis.NearestMultiple((double)rs.Value, (double)fu.Value);
+                    int newVal = superscalar_arch_sim.Utilis.Utilis.NearestMultiple((double)rs.Value, (double)fu.Value);
+                    rs.Value = Math.Min(newVal, rs.Maximum);
                 };
             }
 
@@ -116,6 +122,9 @@ namespace superscalar_arch_sim_gui.Forms
         {
             if (Directory.Exists(DefaultLogpath))
                 textBoxLoggingFolderPath.Text = new DirectoryInfo(DefaultLogpath).FullName;
+            string defaultDir = Path.GetDirectoryName(DefaultLogpath);
+            if (Directory.Exists(defaultDir))
+                textBoxLoggingFolderPath.Text = new DirectoryInfo(defaultDir).FullName;
 
             GUIUtilis.AddEnumRangeToComboBox(PredictionSchemeComboBox , selected: CoreSettings.UsedPredictionScheme);
             GUIUtilis.AddEnumRangeToComboBox(StaticPredictionStrategyComboBox, selected: CoreSettings.StaticPrediction, skip: BranchPredictor.Prediction.None);
@@ -134,6 +143,7 @@ namespace superscalar_arch_sim_gui.Forms
             DynamicStoreLoadBypassCheckBox.Checked = CoreSettings.Dynamic_BypassStoreLoad;
             DynamicAllowSpeculativeLoads.Checked = CoreSettings.Dynamic_AllowSpeculativeLoads;
             DynamicWriteCDBInExecute.Checked = CoreSettings.Dynamic_WriteCommonDataBusFromExecute;
+            DynamicIgnoreIllegal.Checked = CoreSettings.Dynamic_DispatchIgnoreIllegalInstructions;
         }
 
         private void InitDynamicCoreView()
@@ -242,6 +252,7 @@ namespace superscalar_arch_sim_gui.Forms
             CoreSettings.Dynamic_BypassStoreLoad = DynamicStoreLoadBypassCheckBox.Checked;
             CoreSettings.Dynamic_AllowSpeculativeLoads = DynamicAllowSpeculativeLoads.Checked;
             CoreSettings.Dynamic_WriteCommonDataBusFromExecute = DynamicWriteCDBInExecute.Checked;
+            CoreSettings.Dynamic_DispatchIgnoreIllegalInstructions = DynamicIgnoreIllegal.Checked;
             CoreSettings.SettingsChanged = true;
         }
         private void ResetView()

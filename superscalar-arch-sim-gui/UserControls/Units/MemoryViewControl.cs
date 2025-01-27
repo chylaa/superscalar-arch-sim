@@ -13,7 +13,7 @@ namespace superscalar_arch_sim_gui.UserControls.Units
         readonly ToolStripMenuItem[] DisplayStyleItems;
 
         const int VALUES_PER_ROW = 8;
-        const int MAX_ROWS = 1024;
+        const int MAX_ROWS = 256;
 
         private const string DEFAULT_ADDR_ST = "0x0000_0000";
         private const string DEFAULT_ADDR_END = "0x0000_0100";

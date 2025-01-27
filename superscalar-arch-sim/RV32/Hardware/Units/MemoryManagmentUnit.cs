@@ -1,9 +1,6 @@
 ﻿using superscalar_arch_sim.RV32.Hardware.Memory;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace superscalar_arch_sim.RV32.Hardware.Units
 {
@@ -22,25 +19,12 @@ namespace superscalar_arch_sim.RV32.Hardware.Units
         private readonly Memory.Memory ROM;
         private readonly IMemoryComponent[] MemoryComponents;
 
-        private static bool CheckMemoryRanges(params IMemoryComponent[] ms)
-        {
-            long lastOffset = -1;
-            foreach (var mem in ms.OrderBy(x => x.Origin)) {
-                if (mem.Origin < lastOffset) 
-                    return false;
-                lastOffset = mem.Origin;
-            }
-            return true;
-        }
-
         public MemoryManagmentUnit(Memory.Memory ram, Memory.Memory rom) { 
             RAM = ram;
             ROM = rom;
             
             MemoryComponents = new IMemoryComponent[] { RAM, ROM }; // TODO:  ICache, DCache
-            if (false == CheckMemoryRanges(MemoryComponents))
-                throw new Exception("Memory components have at least one common address in their ranges: ["
-                                    + string.Join(",",MemoryComponents.Select(x => x.Origin)) + ']');
+            Reset();
         }
 
 
@@ -51,8 +35,21 @@ namespace superscalar_arch_sim.RV32.Hardware.Units
             => addr >= Origin && (Origin + ByteSize) > addr;
 
         public void Reset()
-            => Array.ForEach(MemoryComponents, com => com.Reset());
+        { 
+            Array.ForEach(MemoryComponents, com => com.Reset());
+            ThrowIfMemoryComponentsOverlaps(); // sanity check
+        }
         
+        /// <exception cref="Exception"> On overlapping addresses</exception>
+        public void ThrowIfMemoryComponentsOverlaps()
+        {
+            if (MemoryOverlaps(MemoryComponents))
+            {
+                string msg = "Memory components have at least one common address in their ranges: ";
+                msg += '[' + string.Join(",", MemoryComponents.Select(x => x.Origin)) + ']';
+                throw new Exception(msg);
+            }
+        }
 
         public uint ReadWord(uint address)
         {
@@ -111,6 +108,18 @@ namespace superscalar_arch_sim.RV32.Hardware.Units
             foreach (var mem in MemoryComponents)
                 mm += $"{mem.Name}: Origin 0x{mem.Origin:X8} | Bytesize: 0x{mem.ByteSize:X8}\n";
             return mm;
+        }
+
+        public static bool MemoryOverlaps(params IMemoryComponent[] ms)
+        {
+            long lastOffset = -1;
+            foreach (var mem in ms.OrderBy(x => x.Origin))
+            {
+                if (mem.Origin < lastOffset)
+                    return true;
+                lastOffset = mem.Origin;
+            }
+            return false;
         }
 
         ///// <summary>

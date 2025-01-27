@@ -84,7 +84,9 @@
             this.DynamicStoreLoadBypassCheckBox = new System.Windows.Forms.CheckBox();
             this.StaticForwardingEnabledCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBoxBranchPrediction = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.UseSingleGlobalFSMCheckBox = new System.Windows.Forms.CheckBox();
+            this.BTBEntriesBitsNumUpDown = new System.Windows.Forms.NumericUpDown();
             this.PHTgroupBox = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.PHTEntryInitValNumUpDown = new System.Windows.Forms.NumericUpDown();
@@ -109,8 +111,7 @@
             this.ImportButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
             this.ApplySettingsButton = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
-            this.BTBEntriesBitsNumUpDown = new System.Windows.Forms.NumericUpDown();
+            this.DynamicIgnoreIllegal = new System.Windows.Forms.CheckBox();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxDataCollection.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -138,6 +139,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.RobEntriesNumUpDown)).BeginInit();
             this.ScalarCoreGroupBox.SuspendLayout();
             this.groupBoxBranchPrediction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BTBEntriesBitsNumUpDown)).BeginInit();
             this.PHTgroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PHTEntryInitValNumUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PHTPatternBitsNumUpDown)).BeginInit();
@@ -147,7 +149,6 @@
             this.FSMgroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FSMPredBitsNumUpDown)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BTBEntriesBitsNumUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPageGeneral
@@ -267,7 +268,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 506);
+            this.tabControl1.Size = new System.Drawing.Size(800, 524);
             this.tabControl1.TabIndex = 3;
             // 
             // CoreSettingsTabPage
@@ -279,7 +280,7 @@
             this.CoreSettingsTabPage.Location = new System.Drawing.Point(4, 22);
             this.CoreSettingsTabPage.Name = "CoreSettingsTabPage";
             this.CoreSettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.CoreSettingsTabPage.Size = new System.Drawing.Size(792, 480);
+            this.CoreSettingsTabPage.Size = new System.Drawing.Size(792, 498);
             this.CoreSettingsTabPage.TabIndex = 1;
             this.CoreSettingsTabPage.Text = "Core";
             // 
@@ -390,7 +391,7 @@
             this.groupBox2.Controls.Add(this.groupBoxBranchPrediction);
             this.groupBox2.Location = new System.Drawing.Point(6, 64);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(781, 412);
+            this.groupBox2.Size = new System.Drawing.Size(781, 432);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pipeline Settings";
@@ -413,7 +414,7 @@
             this.DynamicCoreUnitsGroupBox.Controls.Add(this.INTRSNumUpDown);
             this.DynamicCoreUnitsGroupBox.Controls.Add(this.label15);
             this.DynamicCoreUnitsGroupBox.Controls.Add(this.MEMRSNumUpDown);
-            this.DynamicCoreUnitsGroupBox.Location = new System.Drawing.Point(595, 168);
+            this.DynamicCoreUnitsGroupBox.Location = new System.Drawing.Point(595, 184);
             this.DynamicCoreUnitsGroupBox.Name = "DynamicCoreUnitsGroupBox";
             this.DynamicCoreUnitsGroupBox.Size = new System.Drawing.Size(173, 240);
             this.DynamicCoreUnitsGroupBox.TabIndex = 7;
@@ -682,9 +683,9 @@
             this.DynamicCoreGroupBox.Controls.Add(this.RobEntriesNumUpDown);
             this.DynamicCoreGroupBox.Controls.Add(this.OOOExecRadioButton);
             this.DynamicCoreGroupBox.Controls.Add(this.label17);
-            this.DynamicCoreGroupBox.Location = new System.Drawing.Point(342, 19);
+            this.DynamicCoreGroupBox.Location = new System.Drawing.Point(352, 19);
             this.DynamicCoreGroupBox.Name = "DynamicCoreGroupBox";
-            this.DynamicCoreGroupBox.Size = new System.Drawing.Size(426, 143);
+            this.DynamicCoreGroupBox.Size = new System.Drawing.Size(416, 159);
             this.DynamicCoreGroupBox.TabIndex = 6;
             this.DynamicCoreGroupBox.TabStop = false;
             this.DynamicCoreGroupBox.Text = "Dynamic Core";
@@ -788,7 +789,6 @@
             // InOrderExecRadioButton
             // 
             this.InOrderExecRadioButton.AutoSize = true;
-            this.InOrderExecRadioButton.Enabled = true;
             this.InOrderExecRadioButton.Location = new System.Drawing.Point(24, 77);
             this.InOrderExecRadioButton.Name = "InOrderExecRadioButton";
             this.InOrderExecRadioButton.Size = new System.Drawing.Size(110, 17);
@@ -823,7 +823,6 @@
             // 
             this.OOOExecRadioButton.AutoSize = true;
             this.OOOExecRadioButton.Checked = true;
-            this.OOOExecRadioButton.Enabled = true;
             this.OOOExecRadioButton.Location = new System.Drawing.Point(24, 54);
             this.OOOExecRadioButton.Name = "OOOExecRadioButton";
             this.OOOExecRadioButton.Size = new System.Drawing.Size(130, 17);
@@ -843,13 +842,14 @@
             // 
             // ScalarCoreGroupBox
             // 
+            this.ScalarCoreGroupBox.Controls.Add(this.DynamicIgnoreIllegal);
             this.ScalarCoreGroupBox.Controls.Add(this.DynamicWriteCDBInExecute);
             this.ScalarCoreGroupBox.Controls.Add(this.DynamicAllowSpeculativeLoads);
             this.ScalarCoreGroupBox.Controls.Add(this.DynamicStoreLoadBypassCheckBox);
             this.ScalarCoreGroupBox.Controls.Add(this.StaticForwardingEnabledCheckBox);
             this.ScalarCoreGroupBox.Location = new System.Drawing.Point(6, 19);
             this.ScalarCoreGroupBox.Name = "ScalarCoreGroupBox";
-            this.ScalarCoreGroupBox.Size = new System.Drawing.Size(330, 143);
+            this.ScalarCoreGroupBox.Size = new System.Drawing.Size(340, 159);
             this.ScalarCoreGroupBox.TabIndex = 5;
             this.ScalarCoreGroupBox.TabStop = false;
             this.ScalarCoreGroupBox.Text = "Data Dependencies";
@@ -913,12 +913,21 @@
             this.groupBoxBranchPrediction.Controls.Add(this.BranchPredictionEnabledCheckBox);
             this.groupBoxBranchPrediction.Controls.Add(this.label2);
             this.groupBoxBranchPrediction.Controls.Add(this.StaticPredictionStrategyComboBox);
-            this.groupBoxBranchPrediction.Location = new System.Drawing.Point(7, 168);
+            this.groupBoxBranchPrediction.Location = new System.Drawing.Point(6, 184);
             this.groupBoxBranchPrediction.Name = "groupBoxBranchPrediction";
             this.groupBoxBranchPrediction.Size = new System.Drawing.Size(578, 240);
             this.groupBoxBranchPrediction.TabIndex = 4;
             this.groupBoxBranchPrediction.TabStop = false;
             this.groupBoxBranchPrediction.Text = "Branch Prediction";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(32, 59);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(128, 13);
+            this.label26.TabIndex = 3;
+            this.label26.Text = "Branch Target Buffer bits:";
             // 
             // UseSingleGlobalFSMCheckBox
             // 
@@ -932,13 +941,31 @@
             this.UseSingleGlobalFSMCheckBox.UseVisualStyleBackColor = true;
             this.UseSingleGlobalFSMCheckBox.CheckedChanged += new System.EventHandler(this.UseSingleGlobalFSMCheckBox_CheckedChanged);
             // 
+            // BTBEntriesBitsNumUpDown
+            // 
+            this.BTBEntriesBitsNumUpDown.Location = new System.Drawing.Point(166, 56);
+            this.BTBEntriesBitsNumUpDown.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.BTBEntriesBitsNumUpDown.Name = "BTBEntriesBitsNumUpDown";
+            this.BTBEntriesBitsNumUpDown.Size = new System.Drawing.Size(93, 20);
+            this.BTBEntriesBitsNumUpDown.TabIndex = 2;
+            this.BTBEntriesBitsNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BTBEntriesBitsNumUpDown.Value = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            // 
             // PHTgroupBox
             // 
             this.PHTgroupBox.Controls.Add(this.label8);
             this.PHTgroupBox.Controls.Add(this.PHTEntryInitValNumUpDown);
             this.PHTgroupBox.Controls.Add(this.PHTPatternBitsNumUpDown);
             this.PHTgroupBox.Controls.Add(this.label9);
-            this.PHTgroupBox.Location = new System.Drawing.Point(333, 154);
+            this.PHTgroupBox.Location = new System.Drawing.Point(346, 158);
             this.PHTgroupBox.Name = "PHTgroupBox";
             this.PHTgroupBox.Size = new System.Drawing.Size(228, 76);
             this.PHTgroupBox.TabIndex = 11;
@@ -1006,7 +1033,7 @@
             this.BHTgroupBox.Controls.Add(this.BHTEntryInitValNumUpDown);
             this.BHTgroupBox.Controls.Add(this.label6);
             this.BHTgroupBox.Controls.Add(this.BHTEntriesBitsNumUpDown);
-            this.BHTgroupBox.Location = new System.Drawing.Point(333, 72);
+            this.BHTgroupBox.Location = new System.Drawing.Point(346, 76);
             this.BHTgroupBox.Name = "BHTgroupBox";
             this.BHTgroupBox.Size = new System.Drawing.Size(228, 76);
             this.BHTgroupBox.TabIndex = 10;
@@ -1061,7 +1088,7 @@
             // 
             this.FSMgroupBox.Controls.Add(this.label5);
             this.FSMgroupBox.Controls.Add(this.FSMPredBitsNumUpDown);
-            this.FSMgroupBox.Location = new System.Drawing.Point(333, 10);
+            this.FSMgroupBox.Location = new System.Drawing.Point(346, 14);
             this.FSMgroupBox.Name = "FSMgroupBox";
             this.FSMgroupBox.Size = new System.Drawing.Size(228, 56);
             this.FSMgroupBox.TabIndex = 9;
@@ -1164,7 +1191,7 @@
             this.panel1.Controls.Add(this.ExportButton);
             this.panel1.Controls.Add(this.ApplySettingsButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 506);
+            this.panel1.Location = new System.Drawing.Point(0, 524);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 56);
             this.panel1.TabIndex = 4;
@@ -1210,38 +1237,23 @@
             this.ApplySettingsButton.UseVisualStyleBackColor = true;
             this.ApplySettingsButton.Click += new System.EventHandler(this.ApplySettingsButton_Click);
             // 
-            // label26
+            // DynamicIgnoreIllegal
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(32, 59);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(128, 13);
-            this.label26.TabIndex = 3;
-            this.label26.Text = "Branch Target Buffer bits:";
-            // 
-            // BTBEntriesBitsNumUpDown
-            // 
-            this.BTBEntriesBitsNumUpDown.Location = new System.Drawing.Point(166, 56);
-            this.BTBEntriesBitsNumUpDown.Maximum = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            this.BTBEntriesBitsNumUpDown.Name = "BTBBitsNumUpDown";
-            this.BTBEntriesBitsNumUpDown.Size = new System.Drawing.Size(93, 20);
-            this.BTBEntriesBitsNumUpDown.TabIndex = 2;
-            this.BTBEntriesBitsNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.BTBEntriesBitsNumUpDown.Value = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
+            this.DynamicIgnoreIllegal.AutoSize = true;
+            this.DynamicIgnoreIllegal.Checked = true;
+            this.DynamicIgnoreIllegal.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DynamicIgnoreIllegal.Location = new System.Drawing.Point(32, 124);
+            this.DynamicIgnoreIllegal.Name = "DynamicIgnoreIllegal";
+            this.DynamicIgnoreIllegal.Size = new System.Drawing.Size(299, 17);
+            this.DynamicIgnoreIllegal.TabIndex = 4;
+            this.DynamicIgnoreIllegal.Text = "Dynamic Core: Break dispatch bundle on illegal instruction";
+            this.DynamicIgnoreIllegal.UseVisualStyleBackColor = true;
             // 
             // SimSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 562);
+            this.ClientSize = new System.Drawing.Size(800, 580);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -1281,6 +1293,7 @@
             this.ScalarCoreGroupBox.PerformLayout();
             this.groupBoxBranchPrediction.ResumeLayout(false);
             this.groupBoxBranchPrediction.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BTBEntriesBitsNumUpDown)).EndInit();
             this.PHTgroupBox.ResumeLayout(false);
             this.PHTgroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PHTEntryInitValNumUpDown)).EndInit();
@@ -1293,7 +1306,6 @@
             this.FSMgroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FSMPredBitsNumUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BTBEntriesBitsNumUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1383,5 +1395,6 @@
         private System.Windows.Forms.CheckBox DynamicWriteCDBInExecute;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.NumericUpDown BTBEntriesBitsNumUpDown;
+        private System.Windows.Forms.CheckBox DynamicIgnoreIllegal;
     }
 }

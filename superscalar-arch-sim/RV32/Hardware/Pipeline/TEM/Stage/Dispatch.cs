@@ -427,6 +427,14 @@ namespace superscalar_arch_sim.RV32.Hardware.Pipeline.TEM.Stage
                     // get but not dequeue yet, cause we dont know if corresponding stations are free
                     var item = IRDataQueue.Peek(index: sizeofBundle);
                     var i32 = item.IR32;
+                    if (i32.Illegal)
+                    {
+                        if (Settings.Dynamic_DispatchIgnoreIllegalInstructions)
+                            @break = true;
+                        else
+                            AttemptedToDispatchIllegalInstruction?.Invoke(this, new StageDataArgs(i32, lpc: item.LocalPC));
+                        continue;
+                    }
                     // break bundle if no more available ReservationStations/ROBEntry for this instruction
                     var targetStations = GetTargetStations(i32, out SimMeasures @class);
                     int stationBundleSize = GetAndPostIntSpecificBundleSize(@class);
