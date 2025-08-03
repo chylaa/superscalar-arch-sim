@@ -133,7 +133,7 @@ namespace superscalar_arch_sim.RV32.Hardware.Pipeline.TEM.Units
         public IEnumerable<ROBEntry> GetAllNewerEntries(ROBEntry oldest, bool markedEmpty = false)
             => _entries.Where(e => e.MarkedEmpty == markedEmpty && e.InstructionIndex > oldest.InstructionIndex);
 
-        public void GetNewerAndOlderEntries(ROBEntry entry, bool markedEmpty, in HashSet<ROBEntry> older, in HashSet<ROBEntry> newer)
+        public void GetNewerAndOlderEntries(ROBEntry entry, bool markedEmpty, in List<ROBEntry> older, in List<ROBEntry> newer)
         {
             for (int i = 0; i < Count; i++)
             {

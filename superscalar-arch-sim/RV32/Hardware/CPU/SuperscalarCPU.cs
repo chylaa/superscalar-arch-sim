@@ -88,8 +88,8 @@ namespace superscalar_arch_sim.RV32.Hardware.CPU
 
         #endregion
 
-        readonly HashSet<ROBEntry> ENewerPlaceholder = new HashSet<ROBEntry>();
-        readonly HashSet<ROBEntry> EOlderPlaceholder = new HashSet<ROBEntry>();
+        readonly List<ROBEntry> ENewerPlaceholder = new List<ROBEntry>();
+        readonly List<ROBEntry> EOlderPlaceholder = new List<ROBEntry>();
         #region State variables 
 
         private bool RefetchNeeded = false;
