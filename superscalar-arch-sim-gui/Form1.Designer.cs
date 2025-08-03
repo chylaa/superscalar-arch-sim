@@ -84,13 +84,14 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.BreakpointAddrNumericUpDown = new superscalar_arch_sim_gui.UserControls.CustomControls.ToolStripNumberControl();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.BreakpoinCycleNumericUpDown = new superscalar_arch_sim_gui.UserControls.CustomControls.ToolStripNumberControl();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.tabControlCPUViewType = new System.Windows.Forms.TabControl();
             this.tabPageStaticCPU = new System.Windows.Forms.TabPage();
             this.scalarCoreView = new superscalar_arch_sim_gui.UserControls.Core.Static.ScalarCoreView();
             this.tabPageDynamicCPU = new System.Windows.Forms.TabPage();
             this.superscalarCoreView = new superscalar_arch_sim_gui.UserControls.Core.Dynamic.SuperscalarCoreView();
-            this.BreakpoinCycleNumericUpDown = new superscalar_arch_sim_gui.UserControls.CustomControls.ToolStripNumberControl();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.TerminalViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomStatusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -218,7 +219,7 @@
             this.resetRegisterFileToolStripMenuItem,
             this.resetMemoryToolStripMenuItem});
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             // 
             // resetCoreToolStripMenuItem
@@ -267,7 +268,7 @@
             this.memoryDumpToolStripMenuItem,
             this.registersDumpToolStripMenuItem});
             this.exporToolStripMenuItem.Name = "exporToolStripMenuItem";
-            this.exporToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.exporToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exporToolStripMenuItem.Text = "Export";
             // 
             // simCountersToolStripMenuItem
@@ -296,7 +297,8 @@
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ViewMemoryToolStripMenuItem,
-            this.ViewRegistersToolStripMenuItem});
+            this.ViewRegistersToolStripMenuItem,
+            this.TerminalViewToolStripMenuItem});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -307,7 +309,7 @@
             // 
             this.ViewMemoryToolStripMenuItem.Name = "ViewMemoryToolStripMenuItem";
             this.ViewMemoryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M)));
-            this.ViewMemoryToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.ViewMemoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ViewMemoryToolStripMenuItem.Text = "Memory";
             this.ViewMemoryToolStripMenuItem.Click += new System.EventHandler(this.ShowFormItem_Click);
             // 
@@ -315,7 +317,7 @@
             // 
             this.ViewRegistersToolStripMenuItem.Name = "ViewRegistersToolStripMenuItem";
             this.ViewRegistersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
-            this.ViewRegistersToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.ViewRegistersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ViewRegistersToolStripMenuItem.Text = "Registers";
             this.ViewRegistersToolStripMenuItem.Click += new System.EventHandler(this.ShowFormItem_Click);
             // 
@@ -679,6 +681,48 @@
             this.toolStripLabel2.Text = "Breakpoint address [HEX]";
             this.toolStripLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // BreakpoinCycleNumericUpDown
+            // 
+            this.BreakpoinCycleNumericUpDown.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BreakpoinCycleNumericUpDown.AutoSize = false;
+            this.BreakpoinCycleNumericUpDown.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.BreakpoinCycleNumericUpDown.Hexadecimal = false;
+            this.BreakpoinCycleNumericUpDown.Increment = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.BreakpoinCycleNumericUpDown.Margin = new System.Windows.Forms.Padding(0, 1, 5, 2);
+            this.BreakpoinCycleNumericUpDown.Maximum = new decimal(new int[] {
+            2147483644,
+            0,
+            0,
+            0});
+            this.BreakpoinCycleNumericUpDown.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.BreakpoinCycleNumericUpDown.Name = "BreakpoinCycleNumericUpDown";
+            this.BreakpoinCycleNumericUpDown.Size = new System.Drawing.Size(100, 25);
+            this.BreakpoinCycleNumericUpDown.Text = "0";
+            this.BreakpoinCycleNumericUpDown.ToolTipText = "Specific processor cycle that will trigger simulation PAUSE event.";
+            this.BreakpoinCycleNumericUpDown.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel4.Enabled = false;
+            this.toolStripLabel4.Font = new System.Drawing.Font("Arial Unicode MS", 9.75F);
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(105, 25);
+            this.toolStripLabel4.Text = "Breakpoint cycle";
+            this.toolStripLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // tabControlCPUViewType
             // 
             this.tabControlCPUViewType.Controls.Add(this.tabPageStaticCPU);
@@ -733,47 +777,12 @@
             this.superscalarCoreView.Size = new System.Drawing.Size(1635, 712);
             this.superscalarCoreView.TabIndex = 0;
             // 
-            // BreakpoinCycleNumericUpDown
+            // TerminalViewToolStripMenuItem
             // 
-            this.BreakpoinCycleNumericUpDown.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BreakpoinCycleNumericUpDown.AutoSize = false;
-            this.BreakpoinCycleNumericUpDown.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.BreakpoinCycleNumericUpDown.Hexadecimal = false;
-            this.BreakpoinCycleNumericUpDown.Increment = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.BreakpoinCycleNumericUpDown.Margin = new System.Windows.Forms.Padding(0, 1, 5, 2);
-            this.BreakpoinCycleNumericUpDown.Maximum = new decimal(new int[] {
-            2147483644,
-            0,
-            0,
-            0});
-            this.BreakpoinCycleNumericUpDown.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.BreakpoinCycleNumericUpDown.Name = "BreakpoinCycleNumericUpDown";
-            this.BreakpoinCycleNumericUpDown.Size = new System.Drawing.Size(100, 25);
-            this.BreakpoinCycleNumericUpDown.Text = "0";
-            this.BreakpoinCycleNumericUpDown.ToolTipText = "Specific processor cycle that will trigger simulation PAUSE event.";
-            this.BreakpoinCycleNumericUpDown.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // toolStripLabel4
-            // 
-            this.toolStripLabel4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel4.Enabled = false;
-            this.toolStripLabel4.Font = new System.Drawing.Font("Arial Unicode MS", 9.75F);
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(105, 25);
-            this.toolStripLabel4.Text = "Breakpoint cycle";
-            this.toolStripLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TerminalViewToolStripMenuItem.Name = "terminalToolStripMenuItem";
+            this.TerminalViewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
+            this.TerminalViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TerminalViewToolStripMenuItem.Text = "Terminal";
             // 
             // MainForm
             // 
@@ -865,6 +874,7 @@
         private System.Windows.Forms.ToolStripMenuItem registersDumpToolStripMenuItem;
         private UserControls.CustomControls.ToolStripNumberControl BreakpoinCycleNumericUpDown;
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripMenuItem TerminalViewToolStripMenuItem;
     }
 }
 

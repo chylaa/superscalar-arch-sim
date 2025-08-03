@@ -66,6 +66,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IOTerminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IOTerminal.Designer.cs">
+      <DependentUpon>IOTerminal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MemoryViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +227,9 @@
     <Compile Include="Utilis\UserFilesController.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IOTerminal.resx">
+      <DependentUpon>IOTerminal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemoryViewer.resx">
       <DependentUpon>MemoryViewer.cs</DependentUpon>

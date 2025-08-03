@@ -56,6 +56,7 @@ namespace superscalar_arch_sim_gui
         MemoryViewer MemoryViewerForm { get; set; }
         RegisterFileView RegisterFileForm { get; set; }
         SimSettings SimSettingsForm { get; set; }
+        IOTerminal IOTerminalForm { get; set; }
 
         System.Windows.Forms.Timer SimTimeUpdateDisplayTimer { get; set; } = null;
         System.Windows.Forms.Timer SimRunExperimentDelayed { get; set; } = null;
@@ -132,9 +133,7 @@ namespace superscalar_arch_sim_gui
 
             tabControlCPUViewType.SelectedIndexChanged += delegate
             {
-                GetFormOrNull(SimSettingsForm)?.Close();
-                GetFormOrNull(MemoryViewerForm)?.Close();
-                GetFormOrNull(RegisterFileForm)?.Close();
+                CloseAllForms();
                 SimulatedCPU.Reset(preserveMemory: true); // ensure settings are applied between ICPUs
                 ActiveCPUView.UpdateBindings();
 
@@ -174,8 +173,11 @@ namespace superscalar_arch_sim_gui
             if(SimuRunner.SimulationTask != null && false == SimuRunner.SimulationTask.IsCompleted) 
                 SimuRunner.CancelSimulation(wait_ms: 500);
 
-            GetFormOrNull(MemoryViewerForm)?.Close(); GetFormOrNull(MemoryViewerForm)?.Dispose();
-            GetFormOrNull(RegisterFileForm)?.Close(); GetFormOrNull(RegisterFileForm)?.Dispose();
+            CloseAllForms();
+            GetFormOrNull(MemoryViewerForm)?.Dispose();
+            GetFormOrNull(RegisterFileForm)?.Dispose();
+            GetFormOrNull(RegisterFileForm)?.Dispose();
+            GetFormOrNull(IOTerminalForm)?.Dispose();
             SimTimeUpdateDisplayTimer?.Stop(); SimTimeUpdateDisplayTimer?.Dispose();
             StatusLabelSemaphore.Wait(2000); StatusLabelSemaphore.Dispose();
             SimuRunner.SimulationTask?.Dispose();
@@ -236,6 +238,14 @@ namespace superscalar_arch_sim_gui
             }
         }
 
+        private void CloseAllForms()
+        {
+            GetFormOrNull(SimSettingsForm)?.Close();
+            GetFormOrNull(MemoryViewerForm)?.Close();
+            GetFormOrNull(RegisterFileForm)?.Close();
+            GetFormOrNull(IOTerminalForm)?.Close();
+        }
+
         #region Message status presenter -> (extract to separate class)
         private void InvokeSetStatusMessageLabelTextAndColor(string msg, Color color)
         {
@@ -289,6 +299,8 @@ namespace superscalar_arch_sim_gui
                 CreateRegisterViewFormOrBringToFront();
             else if (sender == OpenSettingsToolStripMenuItem)
                 CreateSimSettingsViewFormOrBringToFront();
+            else if (sender == TerminalViewToolStripMenuItem)
+                CreateIOTerminalFormOrBringToFront();
         }
         private void CreateMemoryViewFormOrBringToFront()
         {
@@ -323,6 +335,13 @@ namespace superscalar_arch_sim_gui
             } else {
                 SimSettingsForm.BringToFront();
             }
+        }
+        private void CreateIOTerminalFormOrBringToFront()
+        {
+            if (GetFormOrNull(IOTerminalForm) is null)
+                (IOTerminalForm = new IOTerminal(SimulatedCPU)).Show();
+            else
+                IOTerminalForm.BringToFront();
         }
 
         private void SimSettingsForm_SettingsChangedCallback(object sender, EventArgs e)
@@ -468,8 +487,7 @@ namespace superscalar_arch_sim_gui
                 e.Cancel = true;
             } else {
                 // Tab changed
-                GetFormOrNull(MemoryViewerForm)?.Close();
-                GetFormOrNull(RegisterFileForm)?.Close();
+                CloseAllForms();
                 scalarCoreView.CloseAllSubforms();
                 superscalarCoreView.CloseAllSubforms();
                 if (WindowState != FormWindowState.Maximized) { 
@@ -793,9 +811,7 @@ namespace superscalar_arch_sim_gui
                 SimRunExperimentDelayed.Dispose();
                 SimRunExperimentDelayed = null;
             }
-            GetFormOrNull(RegisterFileForm)?.Close();
-            GetFormOrNull(MemoryViewerForm)?.Close();
-            GetFormOrNull(SimSettingsForm)?.Close();
+            CloseAllForms();
 
             ResetCPUToSimulationRunReadyState();
             SimuRunner.ResetCPU(ScalarCPU, SimuRunner.ResetUnit.All);
