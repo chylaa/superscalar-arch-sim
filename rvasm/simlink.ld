@@ -6,7 +6,7 @@ __stack_size    = 0x800;        /* required amount of stack */
 __rom_origin    = 0x00000000;   /* start of ROM */
 __rom_length    = 0x00010000;   /* length of ROM */
 __ram_origin    = 0x00010000;   /* start of RAM */
-__ram_length    = 0x00080000;   /* length of RAM */
+__ram_length    = 0x08000000;   /* length of RAM */
 
 /* Set target and entry point */
 TARGET (elf32-littleriscv)
