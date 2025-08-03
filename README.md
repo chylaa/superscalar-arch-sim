@@ -38,6 +38,8 @@ The `EBREAK` instruction is used to automatically pause the execution when execu
 
 ##### Memory
 
+Main memory is modeled by omitting the memory hierarchy, assuming the presence of *ideal* caches (both *ICache* and *DCache*) - this means that memory access time delays are are not taken into account in the simulation.
+
 The compiled program is placed in the simulated processor's read-only memory. If necessary, additional data can also be uploaded to the simulated random access memory.
 The implementation allows access to the **full 32-bit address space** through the use of a dictionary data structure, storing words indexed by an address.
 This approach makes it possible to simulate access to arbitrary address ranges without pre-allocation of large memory resources.
