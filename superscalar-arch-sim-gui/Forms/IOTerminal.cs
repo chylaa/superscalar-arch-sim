@@ -40,12 +40,14 @@ namespace superscalar_arch_sim_gui.Forms
 
             KeyPress += IOTerminal_KeyPress;
 
+            _workerCancellationTokenSource = new CancellationTokenSource();
             _inputOutputObserver = new BackgroundWorker()
             {
                 WorkerSupportsCancellation = true
             };
             _inputOutputObserver.DoWork += TermainalDoWork;
             FormClosing += IOTerminal_FormClosing;
+            _inputOutputObserver.RunWorkerAsync();
         }
 
         private void IOTerminal_FormClosing(object sender, FormClosingEventArgs e)
@@ -64,9 +66,9 @@ namespace superscalar_arch_sim_gui.Forms
 
         private void TermainalDoWork(object sender, DoWorkEventArgs e)
         {
-            while (!_workerCancellationTokenSource.IsCancellationRequested)
+            while (false == _workerCancellationTokenSource.IsCancellationRequested)
             {
-                if (!_inputQueue.IsEmpty && IsCpuReadyToReceiveByte() && _inputQueue.TryDequeue(out byte toSend))
+                if ((false == _inputQueue.IsEmpty) && IsCpuReadyToReceiveByte() && _inputQueue.TryDequeue(out byte toSend))
                 {
                     _ram.WriteByte(InAddress, toSend);
                     SignalByteSent();
@@ -74,7 +76,10 @@ namespace superscalar_arch_sim_gui.Forms
                 if (IsByteToReceiveAvaliable())
                 {
                     char receivedChar = (char)_ram.ReadByte(OutAddress);
-                    terminalTextBox.AppendText(receivedChar.ToString());
+                    if (IsAscii(receivedChar))
+                    {
+                        Invoke(new MethodInvoker(() => terminalTextBox.AppendText(receivedChar.ToString())));
+                    }
                     SignalByteReceived();
                 }
             }
@@ -82,7 +87,7 @@ namespace superscalar_arch_sim_gui.Forms
 
         private bool IsByteToReceiveAvaliable()
         {
-            return _ram.ReadByte(ControlAddress) >> BYTE_TO_RECEIVE_READY_FLAG_BIT == BYTE_FROM_CPU_AVALIABLE;
+            return IsBitEqual(_ram.ReadByte(ControlAddress), BYTE_TO_RECEIVE_READY_FLAG_BIT, BYTE_FROM_CPU_AVALIABLE);
         }
 
         private void SignalByteReceived()
@@ -94,7 +99,7 @@ namespace superscalar_arch_sim_gui.Forms
 
         private bool IsCpuReadyToReceiveByte() 
         {
-            return _ram.ReadByte(ControlAddress) >> BYTE_TO_SEND_READY_FLAG_BIT == CPU_READY_TO_RECEIVE;
+            return IsBitEqual(_ram.ReadByte(ControlAddress), BYTE_TO_SEND_READY_FLAG_BIT, CPU_READY_TO_RECEIVE);
         }
 
         private void SignalByteSent()
@@ -102,6 +107,16 @@ namespace superscalar_arch_sim_gui.Forms
             byte controlByte = _ram.ReadByte(ControlAddress);
             controlByte = (byte)(controlByte | (1 << BYTE_TO_SEND_READY_FLAG_BIT));
             _ram.WriteByte(ControlAddress, controlByte);
+        }
+
+        private static bool IsBitEqual(byte value, byte position, byte bit)
+        {
+            return ((value & (1 << position)) >> position) == bit;
+        }
+
+        private static bool IsAscii(char c)
+        {
+            return c < 0x80;
         }
     }
 }

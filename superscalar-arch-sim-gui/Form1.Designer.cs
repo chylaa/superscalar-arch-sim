@@ -54,6 +54,7 @@
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.ViewMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewRegistersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TerminalViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.DropDownButtonProgramMemory = new System.Windows.Forms.ToolStripDropDownButton();
             this.flashMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +92,6 @@
             this.scalarCoreView = new superscalar_arch_sim_gui.UserControls.Core.Static.ScalarCoreView();
             this.tabPageDynamicCPU = new System.Windows.Forms.TabPage();
             this.superscalarCoreView = new superscalar_arch_sim_gui.UserControls.Core.Dynamic.SuperscalarCoreView();
-            this.TerminalViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BottomStatusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -219,7 +219,7 @@
             this.resetRegisterFileToolStripMenuItem,
             this.resetMemoryToolStripMenuItem});
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             // 
             // resetCoreToolStripMenuItem
@@ -268,7 +268,7 @@
             this.memoryDumpToolStripMenuItem,
             this.registersDumpToolStripMenuItem});
             this.exporToolStripMenuItem.Name = "exporToolStripMenuItem";
-            this.exporToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exporToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.exporToolStripMenuItem.Text = "Export";
             // 
             // simCountersToolStripMenuItem
@@ -320,6 +320,14 @@
             this.ViewRegistersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ViewRegistersToolStripMenuItem.Text = "Registers";
             this.ViewRegistersToolStripMenuItem.Click += new System.EventHandler(this.ShowFormItem_Click);
+            // 
+            // TerminalViewToolStripMenuItem
+            // 
+            this.TerminalViewToolStripMenuItem.Name = "TerminalViewToolStripMenuItem";
+            this.TerminalViewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
+            this.TerminalViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TerminalViewToolStripMenuItem.Text = "Terminal";
+            this.TerminalViewToolStripMenuItem.Click += new System.EventHandler(this.ShowFormItem_Click);
             // 
             // toolStripButton1
             // 
@@ -776,13 +784,6 @@
             this.superscalarCoreView.Name = "superscalarCoreView";
             this.superscalarCoreView.Size = new System.Drawing.Size(1635, 712);
             this.superscalarCoreView.TabIndex = 0;
-            // 
-            // TerminalViewToolStripMenuItem
-            // 
-            this.TerminalViewToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.TerminalViewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
-            this.TerminalViewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.TerminalViewToolStripMenuItem.Text = "Terminal";
             // 
             // MainForm
             // 

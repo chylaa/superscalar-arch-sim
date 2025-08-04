@@ -159,8 +159,10 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.terminalTextBox);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "IOTerminal";
             this.Text = "IOTerminal";
             this.panel1.ResumeLayout(false);
