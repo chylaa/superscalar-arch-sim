@@ -28,27 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.terminalTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.settingsGroupBox = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.controlByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.inputByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.txByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.outputByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.rxByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.settingsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlByteAddressNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inputByteAddressNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.outputByteAddressNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txByteAddressNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rxByteAddressNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // terminalTextBox
             // 
             this.terminalTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.terminalTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.terminalTextBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.terminalTextBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.terminalTextBox.ForeColor = System.Drawing.SystemColors.Info;
             this.terminalTextBox.Location = new System.Drawing.Point(0, 0);
             this.terminalTextBox.Multiline = true;
             this.terminalTextBox.Name = "terminalTextBox";
@@ -71,9 +74,9 @@
             this.settingsGroupBox.Controls.Add(this.label3);
             this.settingsGroupBox.Controls.Add(this.controlByteAddressNumericUpDown);
             this.settingsGroupBox.Controls.Add(this.label2);
-            this.settingsGroupBox.Controls.Add(this.inputByteAddressNumericUpDown);
+            this.settingsGroupBox.Controls.Add(this.txByteAddressNumericUpDown);
             this.settingsGroupBox.Controls.Add(this.label1);
-            this.settingsGroupBox.Controls.Add(this.outputByteAddressNumericUpDown);
+            this.settingsGroupBox.Controls.Add(this.rxByteAddressNumericUpDown);
             this.settingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.settingsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.settingsGroupBox.Location = new System.Drawing.Point(0, 0);
@@ -109,48 +112,50 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(338, 14);
+            this.label2.Location = new System.Drawing.Point(348, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 16);
+            this.label2.Size = new System.Drawing.Size(106, 16);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Input byte address";
+            this.label2.Text = "TX byte address";
             // 
-            // inputByteAddressNumericUpDown
+            // txByteAddressNumericUpDown
             // 
-            this.inputByteAddressNumericUpDown.Hexadecimal = true;
-            this.inputByteAddressNumericUpDown.Location = new System.Drawing.Point(329, 33);
-            this.inputByteAddressNumericUpDown.Maximum = new decimal(new int[] {
+            this.txByteAddressNumericUpDown.Hexadecimal = true;
+            this.txByteAddressNumericUpDown.Location = new System.Drawing.Point(329, 33);
+            this.txByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
             0,
             0});
-            this.inputByteAddressNumericUpDown.Name = "inputByteAddressNumericUpDown";
-            this.inputByteAddressNumericUpDown.Size = new System.Drawing.Size(147, 22);
-            this.inputByteAddressNumericUpDown.TabIndex = 2;
-            this.inputByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txByteAddressNumericUpDown.Name = "txByteAddressNumericUpDown";
+            this.txByteAddressNumericUpDown.Size = new System.Drawing.Size(147, 22);
+            this.txByteAddressNumericUpDown.TabIndex = 2;
+            this.txByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.txByteAddressNumericUpDown, "Address of byte sent from IOTerminal -> CPU.");
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(174, 14);
+            this.label1.Location = new System.Drawing.Point(181, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 16);
+            this.label1.Size = new System.Drawing.Size(107, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Output byte address";
+            this.label1.Text = "RX byte address";
             // 
-            // outputByteAddressNumericUpDown
+            // rxByteAddressNumericUpDown
             // 
-            this.outputByteAddressNumericUpDown.Hexadecimal = true;
-            this.outputByteAddressNumericUpDown.Location = new System.Drawing.Point(165, 33);
-            this.outputByteAddressNumericUpDown.Maximum = new decimal(new int[] {
+            this.rxByteAddressNumericUpDown.Hexadecimal = true;
+            this.rxByteAddressNumericUpDown.Location = new System.Drawing.Point(165, 33);
+            this.rxByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
             0,
             0});
-            this.outputByteAddressNumericUpDown.Name = "outputByteAddressNumericUpDown";
-            this.outputByteAddressNumericUpDown.Size = new System.Drawing.Size(147, 22);
-            this.outputByteAddressNumericUpDown.TabIndex = 0;
-            this.outputByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.rxByteAddressNumericUpDown.Name = "rxByteAddressNumericUpDown";
+            this.rxByteAddressNumericUpDown.Size = new System.Drawing.Size(147, 22);
+            this.rxByteAddressNumericUpDown.TabIndex = 0;
+            this.rxByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.rxByteAddressNumericUpDown, "Address of byte received from CPU -> IOTerminal");
             // 
             // IOTerminal
             // 
@@ -169,8 +174,8 @@
             this.settingsGroupBox.ResumeLayout(false);
             this.settingsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlByteAddressNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inputByteAddressNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.outputByteAddressNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txByteAddressNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rxByteAddressNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,8 +189,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown controlByteAddressNumericUpDown;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown inputByteAddressNumericUpDown;
+        private System.Windows.Forms.NumericUpDown txByteAddressNumericUpDown;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown outputByteAddressNumericUpDown;
+        private System.Windows.Forms.NumericUpDown rxByteAddressNumericUpDown;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

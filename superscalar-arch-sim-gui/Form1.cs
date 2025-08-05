@@ -760,6 +760,7 @@ namespace superscalar_arch_sim_gui
             SettingsToolStripButton.Enabled = true;
             SetControlsEnabled_ResetCPUToolStripItems(enabled: true);
             SetSimulationStatusLabels(active: false);
+            CloseAllForms();
 
             ResetCPUToSimulationRunReadyState();
             RefreshAllCPUUserInterfaceComponents();

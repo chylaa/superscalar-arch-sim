@@ -1,5 +1,6 @@
 ﻿using superscalar_arch_sim.RV32.Hardware.CPU;
 using superscalar_arch_sim.RV32.Hardware.Memory;
+using superscalar_arch_sim.RV32.Hardware.Units;
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -10,33 +11,32 @@ namespace superscalar_arch_sim_gui.Forms
 {
     public partial class IOTerminal : Form
     {
-        private const int BYTE_TO_RECEIVE_READY_FLAG_BIT = 1;
-        private const int BYTE_TO_SEND_READY_FLAG_BIT = 0;
+        /// <summary>'0' we fetched character from IO_RX_BUFFER, set to '1' by CPU upon sending us a character.</summary>
+        private const int IO_CONTROL_RX_BIT = 1;
+        /// <summary>'1' we put character in IO_TX_BUFFER, set to '0' by CPU as ackowledge of receiving (and ready for more).</summary>
+        private const int IO_CONTROL_TX_BIT = 0;
 
-        private const byte BYTE_FROM_CPU_AVALIABLE = 1;
-        private const byte CPU_READY_TO_RECEIVE = 0;
-
-        private readonly Memory _ram;
+        private readonly MemoryManagmentUnit _mmu;
         private readonly BackgroundWorker _inputOutputObserver;
         private readonly CancellationTokenSource _workerCancellationTokenSource;
         private readonly ConcurrentQueue<byte> _inputQueue;
 
         /// <summary>Address of byte received from CPU -> IOTerminal.</summary>
-        private UInt32 OutAddress => (uint)outputByteAddressNumericUpDown.Value;
+        private UInt32 RxBufferAddress => (uint)rxByteAddressNumericUpDown.Value;
         /// <summary>Address of byte sent from IOTerminal -> CPU.</summary>
-        private UInt32 InAddress => (uint)inputByteAddressNumericUpDown.Value;
+        private UInt32 TxBufferAddress => (uint)txByteAddressNumericUpDown.Value;
         private UInt32 ControlAddress => (uint)controlByteAddressNumericUpDown.Value;
 
         public IOTerminal(ICPU cpu)
         {
             InitializeComponent();
             
-            _ram = cpu.RAM;
+            _mmu = cpu.MMU;
             _inputQueue = new ConcurrentQueue<byte>();
 
-            outputByteAddressNumericUpDown.Value = 0x008F_0000;
-            inputByteAddressNumericUpDown.Value = 0x008F_0001;
-            controlByteAddressNumericUpDown.Value = 0x008F_0002;
+            controlByteAddressNumericUpDown.Value = 0x008F_0000;
+            txByteAddressNumericUpDown.Value = 0x008F_0001;
+            rxByteAddressNumericUpDown.Value = 0x008F_0002;
 
             KeyPress += IOTerminal_KeyPress;
 
@@ -47,6 +47,11 @@ namespace superscalar_arch_sim_gui.Forms
             };
             _inputOutputObserver.DoWork += TermainalDoWork;
             FormClosing += IOTerminal_FormClosing;
+            Shown += IOTerminal_Shown;
+        }
+
+        private void IOTerminal_Shown(object sender, EventArgs e)
+        {
             _inputOutputObserver.RunWorkerAsync();
         }
 
@@ -68,14 +73,16 @@ namespace superscalar_arch_sim_gui.Forms
         {
             while (false == _workerCancellationTokenSource.IsCancellationRequested)
             {
-                if ((false == _inputQueue.IsEmpty) && IsCpuReadyToReceiveByte() && _inputQueue.TryDequeue(out byte toSend))
+                bool byteToSentAvaliable = (false == _inputQueue.IsEmpty);
+                bool cpuReady = IsCpuReadyToReceiveByte();
+                if (byteToSentAvaliable && cpuReady && _inputQueue.TryDequeue(out byte toSend))
                 {
-                    _ram.WriteByte(InAddress, toSend);
+                    _mmu.WriteByte(TxBufferAddress, toSend);
                     SignalByteSent();
                 }
                 if (IsByteToReceiveAvaliable())
                 {
-                    char receivedChar = (char)_ram.ReadByte(OutAddress);
+                    char receivedChar = (char)_mmu.ReadByte(RxBufferAddress);
                     if (IsAscii(receivedChar))
                     {
                         Invoke(new MethodInvoker(() => terminalTextBox.AppendText(receivedChar.ToString())));
@@ -87,31 +94,43 @@ namespace superscalar_arch_sim_gui.Forms
 
         private bool IsByteToReceiveAvaliable()
         {
-            return IsBitEqual(_ram.ReadByte(ControlAddress), BYTE_TO_RECEIVE_READY_FLAG_BIT, BYTE_FROM_CPU_AVALIABLE);
+            byte control = _mmu.ReadByte(ControlAddress);
+            return IsBitSet(control, IO_CONTROL_RX_BIT);
         }
 
         private void SignalByteReceived()
         {
-            byte controlByte = _ram.ReadByte(ControlAddress);
-            controlByte = (byte)(controlByte & ~(1 << BYTE_TO_RECEIVE_READY_FLAG_BIT));
-            _ram.WriteByte(ControlAddress, controlByte);
+            byte controlByte = _mmu.ReadByte(ControlAddress);
+            ResetBit(ref controlByte, IO_CONTROL_RX_BIT);
+            _mmu.WriteByte(ControlAddress, controlByte);
         }  
 
         private bool IsCpuReadyToReceiveByte() 
         {
-            return IsBitEqual(_ram.ReadByte(ControlAddress), BYTE_TO_SEND_READY_FLAG_BIT, CPU_READY_TO_RECEIVE);
+            byte control = _mmu.ReadByte(ControlAddress);
+            return false == IsBitSet(control, IO_CONTROL_TX_BIT);
         }
 
         private void SignalByteSent()
         {
-            byte controlByte = _ram.ReadByte(ControlAddress);
-            controlByte = (byte)(controlByte | (1 << BYTE_TO_SEND_READY_FLAG_BIT));
-            _ram.WriteByte(ControlAddress, controlByte);
+            byte controlByte = _mmu.ReadByte(ControlAddress);
+            SetBit(ref controlByte, IO_CONTROL_TX_BIT);
+            _mmu.WriteByte(ControlAddress, controlByte);
         }
 
-        private static bool IsBitEqual(byte value, byte position, byte bit)
+        private static bool IsBitSet(byte value, byte position)
         {
-            return ((value & (1 << position)) >> position) == bit;
+            return ((value & (1 << position)) >> position) == 1;
+        }
+
+        private static void SetBit(ref byte value, byte position)
+        {
+            value |= (byte)(1 << position);
+        }
+
+        private static void ResetBit(ref byte value, byte position)
+        {
+            value &= (byte)(~(1 << position));
         }
 
         private static bool IsAscii(char c)

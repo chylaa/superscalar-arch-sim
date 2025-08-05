@@ -18,8 +18,8 @@ namespace superscalar_arch_sim.Simulis
         }
         
         #region DEFAULTS
-        public const uint ROM_ORIGIN = 0x00000000; const uint ROM_LENGTH = 0x10000;
-        public const uint RAM_ORIGIN = 0x00010000; const uint RAM_LENGTH = 0x80000;
+        public const uint ROM_ORIGIN = 0x0000_0000; const uint ROM_LENGTH = 0x0001_0000;
+        public const uint RAM_ORIGIN = 0x0001_0000; const uint RAM_LENGTH = 0x0800_0000;
         #endregion
 
         public static bool SettingsChanged { get; set; } = false;
