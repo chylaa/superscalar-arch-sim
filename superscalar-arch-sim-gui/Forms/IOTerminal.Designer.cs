@@ -39,6 +39,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.rxByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txKeyViewLabel = new System.Windows.Forms.Label();
+            this.rxKeyViewLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.settingsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlByteAddressNumericUpDown)).BeginInit();
@@ -57,20 +59,22 @@
             this.terminalTextBox.Name = "terminalTextBox";
             this.terminalTextBox.ReadOnly = true;
             this.terminalTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.terminalTextBox.Size = new System.Drawing.Size(800, 389);
+            this.terminalTextBox.Size = new System.Drawing.Size(943, 439);
             this.terminalTextBox.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.settingsGroupBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 389);
+            this.panel1.Location = new System.Drawing.Point(0, 439);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 61);
+            this.panel1.Size = new System.Drawing.Size(943, 61);
             this.panel1.TabIndex = 1;
             // 
             // settingsGroupBox
             // 
+            this.settingsGroupBox.Controls.Add(this.rxKeyViewLabel);
+            this.settingsGroupBox.Controls.Add(this.txKeyViewLabel);
             this.settingsGroupBox.Controls.Add(this.label3);
             this.settingsGroupBox.Controls.Add(this.controlByteAddressNumericUpDown);
             this.settingsGroupBox.Controls.Add(this.label2);
@@ -81,7 +85,7 @@
             this.settingsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.settingsGroupBox.Location = new System.Drawing.Point(0, 0);
             this.settingsGroupBox.Name = "settingsGroupBox";
-            this.settingsGroupBox.Size = new System.Drawing.Size(800, 61);
+            this.settingsGroupBox.Size = new System.Drawing.Size(943, 61);
             this.settingsGroupBox.TabIndex = 0;
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Settings";
@@ -89,7 +93,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(504, 14);
+            this.label3.Location = new System.Drawing.Point(561, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 16);
             this.label3.TabIndex = 5;
@@ -98,7 +102,7 @@
             // controlByteAddressNumericUpDown
             // 
             this.controlByteAddressNumericUpDown.Hexadecimal = true;
-            this.controlByteAddressNumericUpDown.Location = new System.Drawing.Point(495, 33);
+            this.controlByteAddressNumericUpDown.Location = new System.Drawing.Point(552, 33);
             this.controlByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -112,7 +116,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(348, 14);
+            this.label2.Location = new System.Drawing.Point(405, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 16);
             this.label2.TabIndex = 3;
@@ -121,7 +125,7 @@
             // txByteAddressNumericUpDown
             // 
             this.txByteAddressNumericUpDown.Hexadecimal = true;
-            this.txByteAddressNumericUpDown.Location = new System.Drawing.Point(329, 33);
+            this.txByteAddressNumericUpDown.Location = new System.Drawing.Point(386, 33);
             this.txByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -136,7 +140,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(181, 14);
+            this.label1.Location = new System.Drawing.Point(238, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 16);
             this.label1.TabIndex = 1;
@@ -145,7 +149,7 @@
             // rxByteAddressNumericUpDown
             // 
             this.rxByteAddressNumericUpDown.Hexadecimal = true;
-            this.rxByteAddressNumericUpDown.Location = new System.Drawing.Point(165, 33);
+            this.rxByteAddressNumericUpDown.Location = new System.Drawing.Point(222, 33);
             this.rxByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -157,11 +161,36 @@
             this.rxByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.rxByteAddressNumericUpDown, "Address of byte received from CPU -> IOTerminal");
             // 
+            // txKeyViewLabel
+            // 
+            this.txKeyViewLabel.AutoSize = true;
+            this.txKeyViewLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txKeyViewLabel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txKeyViewLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.txKeyViewLabel.Location = new System.Drawing.Point(3, 18);
+            this.txKeyViewLabel.Name = "txKeyViewLabel";
+            this.txKeyViewLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.txKeyViewLabel.Size = new System.Drawing.Size(0, 34);
+            this.txKeyViewLabel.TabIndex = 6;
+            // 
+            // rxKeyViewLabel
+            // 
+            this.rxKeyViewLabel.AutoSize = true;
+            this.rxKeyViewLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.rxKeyViewLabel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rxKeyViewLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.rxKeyViewLabel.Location = new System.Drawing.Point(940, 18);
+            this.rxKeyViewLabel.Name = "rxKeyViewLabel";
+            this.rxKeyViewLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.rxKeyViewLabel.Size = new System.Drawing.Size(0, 34);
+            this.rxKeyViewLabel.TabIndex = 7;
+            this.rxKeyViewLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
             // IOTerminal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(943, 500);
             this.Controls.Add(this.terminalTextBox);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -193,5 +222,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown rxByteAddressNumericUpDown;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label rxKeyViewLabel;
+        private System.Windows.Forms.Label txKeyViewLabel;
     }
 }

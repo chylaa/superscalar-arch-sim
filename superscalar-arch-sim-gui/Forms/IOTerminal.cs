@@ -65,6 +65,7 @@ namespace superscalar_arch_sim_gui.Forms
 
         private void IOTerminal_KeyPress(object sender, KeyPressEventArgs e)
         {
+            SetTextToKeyString(txKeyViewLabel, e.KeyChar);
             _inputQueue.Enqueue((byte)e.KeyChar);
             e.Handled = true;
         }
@@ -85,10 +86,36 @@ namespace superscalar_arch_sim_gui.Forms
                     char receivedChar = (char)_mmu.ReadByte(RxBufferAddress);
                     if (IsAscii(receivedChar))
                     {
-                        Invoke(new MethodInvoker(() => terminalTextBox.AppendText(receivedChar.ToString())));
+                        Invoke((KeyPressEventHandler)OnCharacterReceived, terminalTextBox, new KeyPressEventArgs(receivedChar));
                     }
                     SignalByteReceived();
                 }
+            }
+        }
+
+        private void OnCharacterReceived(object sender, KeyPressEventArgs e)
+        {
+            if (false == (sender is TextBox textBox))
+                return;
+
+            SetTextToKeyString(rxKeyViewLabel, e.KeyChar);
+            switch ((Keys)e.KeyChar)
+            {
+                case Keys.Enter:
+                    textBox.AppendText(Environment.NewLine);
+                    break;
+
+                case Keys.Back:
+                    if (textBox.TextLength > 0)
+                    {
+                        textBox.Text = textBox.Text.Remove(textBox.TextLength - 1);
+                        SetCursorAtTheEnd(textBox);
+                    }
+                    break;
+
+                default:
+                    textBox.AppendText(e.KeyChar.ToString());
+                    break;
             }
         }
 
@@ -136,6 +163,17 @@ namespace superscalar_arch_sim_gui.Forms
         private static bool IsAscii(char c)
         {
             return c < 0x80;
+        }
+
+        private static void SetCursorAtTheEnd(TextBox textBox)
+        {
+            textBox.SelectionStart = textBox.TextLength;
+            textBox.SelectionLength = 0;
+        }
+
+        private static void SetTextToKeyString(Label label, char keyChar)
+        {
+            label.Text = char.IsControl(keyChar) ? $"{{{(Keys)keyChar}}}" : keyChar.ToString();
         }
     }
 }
