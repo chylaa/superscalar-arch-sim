@@ -66,7 +66,9 @@ namespace superscalar_arch_sim_gui.Forms
         private void IOTerminal_KeyPress(object sender, KeyPressEventArgs e)
         {
             SetTextToKeyString(txKeyViewLabel, e.KeyChar);
-            _inputQueue.Enqueue((byte)e.KeyChar);
+            char c = e.KeyChar;
+            if ((Keys)c == Keys.Enter) c = '\n';
+            _inputQueue.Enqueue((byte)c);
             e.Handled = true;
         }
 
@@ -99,13 +101,17 @@ namespace superscalar_arch_sim_gui.Forms
                 return;
 
             SetTextToKeyString(rxKeyViewLabel, e.KeyChar);
-            switch ((Keys)e.KeyChar)
+            switch (e.KeyChar)
             {
-                case Keys.Enter:
+                case '\n': // NEWLINE
                     textBox.AppendText(Environment.NewLine);
                     break;
 
-                case Keys.Back:
+                case '\r':
+                    SetCursorAtTheBegining(textBox);
+                    break;
+
+                case  '\b': // BACKSPACE
                     if (textBox.TextLength > 0)
                     {
                         textBox.Text = textBox.Text.Remove(textBox.TextLength - 1);
@@ -169,6 +175,11 @@ namespace superscalar_arch_sim_gui.Forms
         {
             textBox.SelectionStart = textBox.TextLength;
             textBox.SelectionLength = 0;
+        }
+
+        private static void SetCursorAtTheBegining(TextBox textBox)
+        {
+            textBox.SelectionStart = textBox.SelectionLength = 0;
         }
 
         private static void SetTextToKeyString(Label label, char keyChar)
