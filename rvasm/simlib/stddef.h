@@ -52,6 +52,13 @@ extern unsigned int __rom_length;
 /* ADDRESS where exit code should be written when using EXIT(code) macro*/
 #define EXIT_CODE_DESTINATION (FIRST_FREE_ADDR)
 
+/* Returns 1/0 at 'bit' position of 'value' */
+#define IS_BIT_SET(value, bit) (((value) & (1 << bit)) >> bit)
+/* Sets specified 'bit' of 'value' to 1 */
+#define SET_BIT(value, bit) (value = ((value) | (1 << bit)))
+/* Resets specified 'bit' of 'value' to 0 */
+#define RESET_BIT(value, bit) (value = ((value) & ~(1 << bit)))
+
 /* Writes provided exit code into EXIT_CODE_DESTINATION address*/
 #define EXIT(code) (WRITE(EXIT_CODE_DESTINATION, code))
 

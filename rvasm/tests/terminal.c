@@ -1,7 +1,7 @@
 #include "../simlib/stddef.h"
 #include "../simlib/stdint.h"
 #include "../simlib/strings.h"
-#include "../simlib/io.h"
+#include "../simlib/stdio.h"
 
 #define RX_BUFFER_SIZE 1024
 #define TERMINAL_MAX_CHAR 0x7F
