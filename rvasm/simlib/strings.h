@@ -40,7 +40,7 @@ char* strreverse(char* str, unsigned len)
 
 /* Converts unsigned integer 'num' to NULL-terminated string placed into 'buffer'. Returns length of created string. */
 unsigned itoa(unsigned int num, char* buffer) {
-    unsigned i;
+    unsigned i = 0;
     do {
         buffer[i++] = num % 10 + '0';
         num /= 10;

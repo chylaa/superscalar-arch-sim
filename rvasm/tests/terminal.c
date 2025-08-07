@@ -26,15 +26,15 @@ int terminal_get_echo_char() {
     return IO_ERROR;
 }
 
-void exec_command(const char* buffer, int size) {
-    puts(itoa(size));
+void exec_command(char* buffer, int size) {
+    itoa(size, buffer);
+    puts(buffer);
     puts(" characters in buffer\n");
     puts(" - but no commands implemented yet :c\n");
     puts(promptstr);
 }
 
 int main(void) {
-    io_init();
     puts(promptstr);
     
     char* buffer = cbuffer;

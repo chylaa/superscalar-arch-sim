@@ -1,7 +1,10 @@
 #include "../simlib/stddef.h"
 #include "../simlib/stdint.h"
 
-/*Copies initialized variables, flashed to ROM (after .text) into .data section*/
+/*
+Copies initialized variables, flashed to ROM (after .text) into .data section
+If IO_H is defined, automatically calls the io_init() function from io.h
+*/
 #if DATACOPY == 1 // stddef.h
     void _boot_initdata() {
         uint32_t* rom = &_program_end;
@@ -10,6 +13,9 @@
         while (ram < &_edata) {
             *ram++ = *rom++;
         }
+    #ifdef IO_H
+        io_init(); // auto-init if was imported 
+    #endif
         return;
     }
 #else
