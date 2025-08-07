@@ -29,7 +29,7 @@ int hextou32(const char *input, int len, uint32_t *out)
         len = MAX_CHARS;
     } 
 
-    *out = 0;
+    uint32_t num = 0;
     for (int i = 0; len > 0; --len, ++i) {
         uint8_t halfb;
         char c = input[len-1];
@@ -42,7 +42,8 @@ int hextou32(const char *input, int len, uint32_t *out)
         } else { // invalid character
             return 0;
         }
-        *out += (halfb << (4*i));
+        num += (halfb << (4*i));
     }
+    *out = num;
     return 1;
 }
