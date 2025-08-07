@@ -18,4 +18,13 @@ typedef signed char int8_t;
 /*Unsigned byte [unsigned char]*/
 typedef unsigned char uint8_t;
 
+#define INT64_MAX 0x7FFFFFFFFFFFFFFFL
+#define UINT64_MAX 0xFFFFFFFFFFFFFFFFUL
+#define INT32_MAX 0x7FFFFFFF
+#define UINT32_MAX 0xFFFFFFFFU
+#define INT16_MAX 0x7FFF
+#define UINT16_MAX 0xFFFFU
+#define INT8_MAX 0x7F
+#define UINT8_MAX 0xFFU
+
 #endif
