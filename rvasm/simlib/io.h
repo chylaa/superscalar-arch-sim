@@ -1,3 +1,6 @@
+#ifndef IO_H
+#define IO_H
+
 #include "stddef.h"
 #include "stdint.h"
 
@@ -66,3 +69,4 @@ int puts(const char* s) {
 }
 
 #pragma endregion
+#endif /* IO_H */

@@ -1,3 +1,6 @@
+#ifndef HEX_H
+#define HEX_H
+
 #include "stdint.h"
 
 /* Converts 32bit unsigned integer to 8-character NULL-terminated string placed in 'buffer'. Returns 'buffer'. */
@@ -47,3 +50,5 @@ int hextou32(const char *input, int len, uint32_t *out)
     *out = num;
     return 1;
 }
+
+#endif /* __HEX_H__ */

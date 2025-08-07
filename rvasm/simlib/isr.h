@@ -1,5 +1,5 @@
-#ifndef RV_ISR_H
-#define RV_ISR_H
+#ifndef ISR_H
+#define ISR_H
 
 typedef void (*ISRFunction)(void);
 
@@ -34,4 +34,4 @@ typedef void (*ISRFunction)(void);
 #define Reserved4                     vect_exc_14
 #define StoreAMOPageFault             vect_exc_15
 
-#endif /* RV_ISR_H */
+#endif /* ISR_H */
