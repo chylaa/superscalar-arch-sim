@@ -35,6 +35,7 @@ void exec_command(char* buffer, int size) {
 }
 
 int main(void) {
+    io_init();
     puts(promptstr);
     
     char* buffer = cbuffer;
