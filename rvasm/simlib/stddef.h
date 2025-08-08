@@ -16,6 +16,10 @@ extern unsigned int _program_end;
 extern unsigned int _sdata;
 /* Linker script symbol - end address of .data section*/
 extern unsigned int _edata;
+/* Linker script symbol - start address of .bss section */
+extern unsigned int _sbss;
+/* Linker script symbol - end address of .bss section*/
+extern unsigned int _ebss;
 /* Linker script symbol - size of declared RAM memory*/
 extern unsigned int __rom_length;
 

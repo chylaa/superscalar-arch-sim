@@ -65,8 +65,11 @@ SECTIONS
 
     PROVIDE( __sdata$ = _sdata );
     PROVIDE( __edata$ = _edata );
+    PROVIDE( __sbss$ = _sbss);
+    PROVIDE( __ebss$ = _ebss);
     PROVIDE( __datasize$ = SIZEOF(.data) );
     PROVIDE( __glob_stack_ptr$ = _sstack );
+
 }
   
                         

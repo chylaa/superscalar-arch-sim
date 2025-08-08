@@ -10,6 +10,10 @@
         while (ram < &_edata) {
             *ram++ = *rom++;
         }
+        ram = &_sbss;
+        while (ram < &_ebss) {
+            *ram++ = 0;
+        }
         return;
     }
 #else
