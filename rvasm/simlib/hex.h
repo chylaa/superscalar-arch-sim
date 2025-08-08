@@ -3,12 +3,24 @@
 
 #include "stdint.h"
 
+static const char HEXCHARS[17] = "0123456789ABCDEF";
+
+// Returns '1' if 'c' is a hexadecimal digit ([0-9], [a-f], [A-F])
+int isxdigit(int c)
+{
+  return (
+          ((c >= '0') && (c <= '9')) || 
+          ((c >= 'a') && (c <= 'f')) ||
+          ((c >= 'A') && (c <= 'F'))
+         );
+}
+
 /* Converts 32bit unsigned integer to 8-character NULL-terminated string placed in 'buffer'. Returns 'buffer'. */
 char* u32tohex(uint32_t num, char* buffer) {
     int i = 8;
     buffer[i] = '\0';
     for ( ; i > 0; num >>= 4)
-       buffer[--i] = "0123456789ABCDEF"[num&0xF];
+       buffer[--i] = HEXCHARS[num&0xF];
     return buffer;
 }
 
