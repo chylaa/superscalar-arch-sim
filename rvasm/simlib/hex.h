@@ -24,6 +24,18 @@ char* u32tohex(uint32_t num, char* buffer) {
     return buffer;
 }
 
+/* Converts character 'c' representing the hex digit to a number. On non-hex digit returns the value -1.*/
+int8_t hexctonum(char c) {
+    if (c >= '0' && c <= '9') {
+        return c - '0';
+    } else if (c >= 'A' && c <= 'F') {
+        return c - 'A' + 0x0A;
+    } else if (c >= 'a' && c <= 'f') {
+        return c - 'a' + 0x0A;
+    } else { // invalid character
+        return -1;
+    }
+}
 
 /* Converts hex string from 'input' to 32bit unsigned integer. 
 Takes up to 8 lower/upper case characters, with/wihout '0x' prefix for input. 
@@ -46,16 +58,10 @@ int hextou32(const char *input, int len, uint32_t *out)
 
     uint32_t num = 0;
     for (int i = 0; len > 0; --len, ++i) {
-        uint8_t halfb;
         char c = input[len-1];
-        if (c >= '0' && c <= '9') {
-            halfb = c - '0';
-        } else if (c >= 'A' && c <= 'F') {
-            halfb = c - 'A' + 0x0A;
-        } else if (c >= 'a' && c <= 'f') {
-            halfb = c - 'a' + 0x0A;
-        } else { // invalid character
-            return 0;
+        int8_t halfb = hexchar(c);
+        if (halfb < 0) { 
+            return 0; // invalid character
         }
         num += (halfb << (4*i));
     }

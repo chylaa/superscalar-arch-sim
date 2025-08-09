@@ -40,6 +40,28 @@ void exec_read(uint8_t* start, const uint8_t* end) {
     } while(start++ < end);
 }
 
+// addr:val val val...
+// :val val val...
+uint32_t exec_write(uint8_t* dest, const char* values) {
+    while (*values) {
+        if (!isxdigit(*values)) {
+            ++values;
+            continue;
+        }
+        int8_t h = hexctonum(*values++);
+        int8_t l = hexctonum(*values++);
+        if (h < 0 && l < 0) {
+            break;
+        } 
+        if (h >= 0 && l < 0) {
+            *dest = h;
+            continue;
+        }
+        *dest++ = ((h << 4) | l);
+    }
+    return (uint32_t)(dest - 1);
+}
+
 int is_address_char(char c) { 
     return isxdigit(c) || c == 'x' || c == 'X'; 
 }
@@ -52,7 +74,7 @@ char* exec_command(char* buffer) {
     char* p = buffer;
     
     while (is_address_char(*p++));
-    // here we could safely get the non-addr symbol with "char x = *(p-1);" 
+    const char funcchar = *(p-1); 
     const char* endstr = p;  
     hextou32(buffer, (p - buffer) - 1, &startaddr);
     
@@ -61,6 +83,10 @@ char* exec_command(char* buffer) {
     hextou32(endstr, (p - endstr) - 1, &endaddr);
     
     print_address(startaddr); putc(':');
+    if (funcchar == ':') { // endstr    \/ points to first char of first value to write
+        endaddr = exec_write((uint8_t*)startaddr, endstr);
+        *p = '\0'; // force end of a command
+    }
     exec_read((uint8_t*)startaddr, (uint8_t*)endaddr);
 
     putc(CC_LINEFEED);
@@ -88,7 +114,7 @@ int main(void) {
         else if (c == CC_LINEFEED) {
             buffer[buffer_size] = '\0';
             char* p = buffer;
-            while((p = exec_command(p)) && ((p - buffer) <= buffer_size));
+            while(*(p = exec_command(p)));
             buffer[buffer_size = 0] = '\0'; // "free" buffer
             puts(promptstr);
             continue;
