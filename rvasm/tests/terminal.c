@@ -41,16 +41,15 @@ void exec_read(uint8_t* start, const uint8_t* end) {
 }
 
 int is_address_char(char c) { 
-    return isxdigit(c) ||  c == 'x'|| c == 'X'; 
+    return isxdigit(c) || c == 'x' || c == 'X'; 
 }
 
 // addr -> val 
 // addr.addr -> val val val...
 // .addr -> val val val...
-void exec_command(char* buffer, int size) {
-    /// TODO: Fix or add safeguard on invalid first input (without ever setting 'startaddr' to something)
+char* exec_command(char* buffer) {
     static uint32_t startaddr = 0;
-    const char* p = buffer;
+    char* p = buffer;
     
     while (is_address_char(*p++));
     // here we could safely get the non-addr symbol with "char x = *(p-1);" 
@@ -65,7 +64,7 @@ void exec_command(char* buffer, int size) {
     exec_read((uint8_t*)startaddr, (uint8_t*)endaddr);
 
     putc(CC_LINEFEED);
-    puts(promptstr);
+    return p;
 }
 
 int main(void) {
@@ -88,8 +87,10 @@ int main(void) {
         }
         else if (c == CC_LINEFEED) {
             buffer[buffer_size] = '\0';
-            exec_command(buffer, buffer_size);
+            char* p = buffer;
+            while((p = exec_command(p)) && ((p - buffer) <= buffer_size));
             buffer[buffer_size = 0] = '\0'; // "free" buffer
+            puts(promptstr);
             continue;
         }
         else if (c == CC_ESCAPE) {

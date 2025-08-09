@@ -32,12 +32,12 @@ Returns 0 if conversion failed.
 */
 int hextou32(const char *input, int len, uint32_t *out)
 {
-    if (len <= 0) {
-        return 0;
-    }
     if (len > 2 && input[0] == '0' && (input[1] == 'X' || input[1] == 'x')) {
         input += 2;
         len -= 2;
+    }
+    if (len <= 0) {
+        return 0;
     }
     const int MAX_CHARS = 2 * sizeof(uint32_t);
     if (len > MAX_CHARS) {
