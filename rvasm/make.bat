@@ -16,7 +16,7 @@ set "ldarch=-A riscv:rv32im"
 set "arch=-mno-relax -march=rv32im -mabi=ilp32" 
 : set "arch=-mno-relax -march=rv32im -mabi=ilp32 -DPERFORMANCE=1"
 set "emulation=-m elf32lriscv"
-set "disasmopt=-D -M numeric,no-aliases --visualize-jumps"
+set "disasmopt=-w -D -M numeric,no-aliases --visualize-jumps"
 set "addr2lineopt=--addresses --functions --inlines --pretty-print --basenames --target=elf32-littleriscv --demangle=gnat"
 set "floatlib=--library-path lib\RVfplib\build\lib --library rvfp"
 
@@ -188,7 +188,7 @@ if not defined arg_nclean (
     if exist *.o del *.o /Q
     if exist *.elf del *.elf /Q
 ) else (
-    echo Info: --clean: intermediate files are not cleaned.
+    echo Info: --nclean: intermediate files are not cleaned.
 )
 
 
