@@ -17,7 +17,7 @@ Created user interface is presented in the [screenshots](./screenshots) folder.
 
 #### Environment overview
 
-Compilation and linking are done independently and require the use of an existing toolchain (e.g. GCC `riscv64-unknown-elf...` suite). 
+Compilation and linking are done independently and require the use of an existing toolchain (e.g. GCC [riscv64-unknown-elf](https://gnutoolchains.com/risc-v/).... suite) 
 User can utilize provided configuration by installing RISC-V GCC toolchain and setting appropriate paths in Windows Batch script [make.bat](./rvasm/make.bat) located in [rvasm](./rvasm) folder.
 
 By default, script automatically invokes the compilation of a single-file `.c` or `.s` source and links it with 
