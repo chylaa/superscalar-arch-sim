@@ -1,5 +1,4 @@
 ﻿using superscalar_arch_sim.RV32.Hardware.CPU;
-using superscalar_arch_sim.RV32.Hardware.Memory;
 using superscalar_arch_sim.RV32.Hardware.Units;
 using System;
 using System.Collections.Concurrent;
@@ -65,10 +64,19 @@ namespace superscalar_arch_sim_gui.Forms
 
         private void IOTerminal_KeyPress(object sender, KeyPressEventArgs e)
         {
-            SetTextToKeyString(txKeyViewLabel, e.KeyChar);
-            char c = e.KeyChar;
-            if ((Keys)c == Keys.Enter) c = '\n';
-            _inputQueue.Enqueue((byte)c);
+            const char CTRL_V = '\x16';  
+            if (e.KeyChar == CTRL_V && Clipboard.ContainsText())
+            {
+                string text = Clipboard.GetText().Replace(Environment.NewLine, "\n");
+                foreach (char c in text) _inputQueue.Enqueue((byte)c);
+            } 
+            else
+            {
+                char c = e.KeyChar;
+                if ((Keys)c == Keys.Enter) c = '\n';
+                SetTextToKeyString(txKeyViewLabel, c);
+                _inputQueue.Enqueue((byte)c);
+            }
             e.Handled = true;
         }
 

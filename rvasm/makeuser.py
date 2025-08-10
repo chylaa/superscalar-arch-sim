@@ -75,7 +75,7 @@ def format_map(bin_file:str, start_addr:int) -> str:
         chunk = data[offset:offset+MAP_BYTES_PER_LINE]
         hex_bytes = " ".join(f"{b:02X}" for b in chunk)
         lines.append(f"{start_addr+offset:X}: {hex_bytes}")
-    return "\n".join(lines)
+    return ("\n".join(lines)) + "\n"
 
 def main():
     args = parse_args()
@@ -104,11 +104,11 @@ def main():
     print(f"[INFO] Localizing binary of {args.file}...")
     bin_file = get_bin_path(args.file)
     print(f"[INFO] Formatting {OUTPUT_MAP_FILE_EXT} file...")
-    out_text = format_map(bin_file, addr_to_use)
-
+    out_text:str = format_map(bin_file, addr_to_use)
+    out_data:bytes = out_text.encode('ascii') 
     out_text_file = os.path.splitext(bin_file)[0] + OUTPUT_MAP_FILE_EXT
-    with open(out_text_file, "w") as f:
-        f.write(out_text)
+    with open(out_text_file, "wb") as f:
+        f.write(out_data)
 
     print(f"[INFO] Finished: Map file saved to {out_text_file}")
 

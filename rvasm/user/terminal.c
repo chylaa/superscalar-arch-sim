@@ -40,8 +40,6 @@ void exec_read(uint8_t* start, const uint8_t* end) {
     } while(start++ < end);
 }
 
-// addr:val val val...
-// :val val val...
 uint32_t exec_write(uint8_t* dest, const char* values) {
     while (*values) {
         if (!isxdigit(*values)) {
@@ -62,13 +60,25 @@ uint32_t exec_write(uint8_t* dest, const char* values) {
     return (uint32_t)(dest - 1);
 }
 
+void exec_run(uint32_t startaddr) {
+    void (*userprogram)(void) = (void (*)())startaddr;
+    userprogram();
+}
+
 int is_address_char(char c) { 
     return isxdigit(c) || c == 'x' || c == 'X'; 
 }
 
+// ==========< READ >===========
 // addr -> val 
 // addr.addr -> val val val...
 // .addr -> val val val...
+// =========< WRITE >===========
+// addr:val val val...
+// :val val val...
+// ==========< RUN >============
+// addr R
+//
 char* exec_command(char* buffer) {
     static uint32_t startaddr = 0;
     char* p = buffer;
@@ -83,11 +93,19 @@ char* exec_command(char* buffer) {
     hextou32(endstr, (p - endstr) - 1, &endaddr);
     
     print_address(startaddr); putc(':');
-    if (funcchar == ':') { // endstr    \/ points to first char of first value to write
+    
+    if (*endstr == 'R') {
+        putc(CC_LINEFEED);
+        exec_run(startaddr);
+    }
+    else if (funcchar == ':') {
         endaddr = exec_write((uint8_t*)startaddr, endstr);
+        exec_read((uint8_t*)startaddr, (uint8_t*)endaddr); // confirm written data
         *p = '\0'; // force end of a command
     }
-    exec_read((uint8_t*)startaddr, (uint8_t*)endaddr);
+    else {
+        exec_read((uint8_t*)startaddr, (uint8_t*)endaddr);
+    }
 
     putc(CC_LINEFEED);
     return p;

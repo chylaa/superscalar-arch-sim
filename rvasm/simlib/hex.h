@@ -59,7 +59,7 @@ int hextou32(const char *input, int len, uint32_t *out)
     uint32_t num = 0;
     for (int i = 0; len > 0; --len, ++i) {
         char c = input[len-1];
-        int8_t halfb = hexchar(c);
+        int8_t halfb = hexctonum(c);
         if (halfb < 0) { 
             return 0; // invalid character
         }
