@@ -29,109 +29,113 @@ set "bootobj=boot.o"
 set "ldout=%~n1.elf"
 set "binoutdir=%~dp0\..\rvbin\%~n1\"	
 set "optimlvl="
+setlocal enabledelayedexpansion
 
-setlocal
-
-if "%src%" == ""  ( goto :help )
+if "!src!" == ""  ( goto :help )
 
 set "optemp=%2"
-if "%optemp:~0,2%" == "-O" (
+if "!optemp:~0,2!" == "-O" (
     set "optimlvl=%2"
 )
 
 for %%i in (%*) do (
-    if "%%i" == "--help" ( 
+    set "locarg=%%i"
+    if "!locarg!" == "--help" ( 
         set "arg_help=1"
-    ) else if "%%i" == "--noboot" ( 
+    ) else if "!locarg!" == "--noboot" ( 
         set "arg_noboot=1" 
-    ) else if "%%i" == "--nodasm" ( 
+    ) else if "!locarg!" == "--nodasm" ( 
         set "arg_nodasm=1" 
-    ) else if "%%i" == "--nodata" ( 
+    ) else if "!locarg!" == "--nodata" ( 
         set "arg_nodata=1" 
-    ) else if "%%i" == "--nclean" ( 
+    ) else if "!locarg!" == "--nclean" ( 
         set "arg_nclean=1" 
-    ) else if "%%i" == "--nshow" ( 
+    ) else if "!locarg!" == "--nshow" ( 
         set "arg_nshow=1" 
-    ) else if "%%i" == "--outelf" ( 
+    ) else if "!locarg!" == "--outelf" ( 
         set "arg_outelf=1" 
-    ) else if "%%i" == "--fplib" ( 
+    ) else if "!locarg:~0,7!" == "--link+" (
+        set "ldscript=!locarg:~7!"
+    ) else if "!locarg!" == "--fplib" ( 
         set "arg_fplib=1" 
-    ) else if not %%i == %src% (
-        if optimlvl == "" ( 
-            set "invalidarg=%%i"
+    ) else if not !locarg! == !src! (
+        if "!optimlvl!" == "" ( 
+            set "invalidarg=!locarg!"
         ) 
     )
 )
+
 if defined invalidarg ( goto :argunknown )
 if defined arg_help ( goto :help )
 
 echo:
-echo Compiling %src% to little-endian objects...
+echo Compiling !src! to little-endian objects...
 if defined optimlvl (
-    echo Optimization level: %optimlvl%
+    echo Optimization level: !optimlvl!
 )
 
 set "optionalldargs="
 if defined arg_fplib (
-    set "optionalldargs=%floatlib%"
+    set "optionalldargs=!floatlib!"
     echo ^(Using "RVfplib" floating-point library^)
 )
 
-if "%src:~-2%" == ".c" (
-    set "compiler=%gcc%"
+if "!src:~-2!" == ".c" (
+    set "compiler=!gcc!"
 )
-if "%src:~-4%" == ".cpp" (
-    set "compiler=%gpp%"
+if "!src:~-4!" == ".cpp" (
+    set "compiler=!gpp!"
 )
 
 : if given src is .c file
 if defined compiler (
-    echo Compiling %src% with %compiler%...
+    echo Compiling !src! with !compiler!...
 
-    %compiler% %optimlvl% -c %src% -o %obj% %arch% -ffreestanding -nostdlib
-    if %errorlevel% neq 0 ( goto :FAIL )
+    !compiler! !optimlvl! -c !src! -o !obj! !arch! -ffreestanding -nostdlib
+    if !errorlevel! neq 0 ( goto :FAIL )
     if not defined arg_noboot (
-        echo Compiling %boot% %crt0% and linking to %src%...
-        %compiler% %optimlvl% -c %boot% -o %bootobj% %arch% -ffreestanding -nostdlib
-        %compiler% %optimlvl% -c %crt0% -o %crt0obj% %arch% -ffreestanding -nostdlib
-        %link% %bootobj% %crt0obj% %obj% %ldarch% %ldargs% %emulation% -o %ldout% -T %ldscript% %optionalldargs%
+        echo Compiling !boot! !crt0!...
+        !compiler! !optimlvl! -c !boot! -o !bootobj! !arch! -ffreestanding -nostdlib
+        !compiler! !optimlvl! -c !crt0! -o !crt0obj! !arch! -ffreestanding -nostdlib
+        echo Linking !src!, !boot!, !crt0! base on !ldscript!...
+        !link! !bootobj! !crt0obj! !obj! !ldarch! !ldargs! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
     ) else (
-        echo Linking %src%...
-        %link% %obj% %ldarch% %ldargs% %emulation% -o %ldout% -T %ldscript% %optionalldargs%
+        echo Linking !src! base on !ldscript!...
+        !link! !obj! !ldarch! !ldargs! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
     )
     goto :ERRLVL
 )
 : if given src is .s file
-if "%src:~-2%" == ".s" (
-    echo Assembling %src% with %asm%...
+if "!src:~-2!" == ".s" (
+    echo Assembling !src! with !asm!...
 
-    %asm% %arch% %src% -o %obj% 
-    echo Linking %src%...
-    %link% %obj% %ldarch% %emulation% -o %ldout% -T %ldscript% %optionalldargs%
-    : del %obj%
+    !asm! !arch! !src! -o !obj! 
+    echo Linking !src!...
+    !link! !obj! !ldarch! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
+    : del !obj!
     goto :ERRLVL
 )
 :INVALIDFILE
 : if given src is not .c or .s file
-echo Error: %src% is not a .c or .s file
+echo Error: !src! is not a .c or .s file
 goto :EOFEXIT
 
 :ERRLVL
-if %errorlevel% neq 0 (
+if !errorlevel! neq 0 (
 :FAIL
     echo Error: Compilation failed.
     goto :clean
 )
 
 :RAWHEX
-echo Extracting raw .text and .data bytes from %ldout% to %binoutdir%...
+echo Extracting raw .text and .data bytes from !ldout! to !binoutdir!...
 : extract raw .text bytes from elf file
-%objcopy% -O binary --only-section=.text %ldout% %~n1.text
+!objcopy! -O binary --only-section=.text !ldout! %~n1.text
 : extract raw .data bytes from elf file
-%objcopy% -O binary --only-section=.data %ldout% %~n1.data 
+!objcopy! -O binary --only-section=.data !ldout! %~n1.data 
 if defined arg_nodata (
     echo Merging .text and.data bytes into single ^*.text file 
-    if %errorlevel% neq 0 (
+    if !errorlevel! neq 0 (
         echo Error: Extracting raw bytes with objcopy failed.
         goto :EOFEXIT
     ) else (
@@ -140,42 +144,42 @@ if defined arg_nodata (
 ) 
 
 : if optimization defined, wipe related folder, remake it, and fill it with new files (do not ask overwrite/confirm)
-if not exist %binoutdir% mkdir %binoutdir%
+if not exist !binoutdir! mkdir !binoutdir!
 if defined optimlvl (
-    if exist %binoutdir%\%optimlvl% RMDIR %binoutdir%\%optimlvl% /S/Q
-    mkdir %binoutdir%\%optimlvl%
-    set "binoutdir=%binoutdir%\%optimlvl%\"
+    if exist !binoutdir!\!optimlvl! RMDIR !binoutdir!\!optimlvl! /S/Q
+    mkdir !binoutdir!\!optimlvl!
+    set "binoutdir=!binoutdir!\!optimlvl!\"
 ) else (
-    del %binoutdir%\* /Q
+    del !binoutdir!\* /Q
 )
-xcopy %~n1.text %binoutdir% /Y/Q
+xcopy %~n1.text !binoutdir! /Y/Q
 if not defined arg_nodata (
-    xcopy %~n1.data %binoutdir% /Y/Q
+    xcopy %~n1.data !binoutdir! /Y/Q
 )
 
 if not defined arg_nodasm (
-    echo Disassembling %ldout%...
+    echo Disassembling !ldout!...
 
-    if exist %binoutdir%%~n1_disasm.txt del %binoutdir%%~n1_disasm.txt /Q
-    %disasm% %disasmopt% %ldout% > %binoutdir%%~n1_disasm.txt
+    if exist !binoutdir!%~n1_disasm.txt del !binoutdir!%~n1_disasm.txt /Q
+    !disasm! !disasmopt! !ldout! > !binoutdir!%~n1_disasm.txt
     timeout 3
 
-    if %errorlevel% neq 0 (
+    if !errorlevel! neq 0 (
         echo Error: Disassembling failed.
         goto :EOFEXIT
     ) else (
         if not defined arg_nshow (
-            start %texteditor% %binoutdir%%~n1_disasm.txt
+            start !texteditor! !binoutdir!%~n1_disasm.txt
         )
     )
 ) 
 
 if defined arg_outelf (
-    echo Creating copy of %ldout% file...
-    xcopy %ldout% %binoutdir% /Y/Q
+    echo Creating copy of !ldout! file...
+    xcopy !ldout! !binoutdir! /Y/Q
 )
 
-echo ^[OK^] Files written to %binoutdir%
+echo ^[OK^] Files written to !binoutdir!
 
 
 if exist *.text del %~n1.text /Q
@@ -197,15 +201,17 @@ endlocal
 exit /b
 
 :argunknown
-    echo: Unknown argument passed: %invalidarg%
+    echo: Unknown argument passed: !invalidarg!
     echo Seek help
 
 :help
     echo _____________________________________
-    echo Usage: %0 srcfile ^[options^]
+    echo Usage: %~nx0 srcfile ^[options^]
     echo:
     echo     srcfile : main entry .s or .c source code
     echo     optimize: [optional] optimization level for ".c" files, (-O0, -O1, -O2, -O3, -Os, -Oz, -Ofast)
+    echo:
+    echo    --link+  : use specified linker script. Default is "--link+!ldscript!"
     echo:
     echo    --nclean : do not clean intermediate files
     echo    --nodasm : do not disassemble the elf file
