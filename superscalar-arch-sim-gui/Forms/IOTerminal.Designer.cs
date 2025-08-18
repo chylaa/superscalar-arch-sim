@@ -29,38 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.terminalTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.settingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.controlByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.txKeyViewLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.rxByteAddressNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txKeyViewLabel = new System.Windows.Forms.Label();
-            this.rxKeyViewLabel = new System.Windows.Forms.Label();
+            this.enableBufferingCheckBox = new System.Windows.Forms.CheckBox();
+            this.terminalTextBox = new superscalar_arch_sim_gui.UserControls.CustomControls.TerminalTextBox();
             this.panel1.SuspendLayout();
             this.settingsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.controlByteAddressNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txByteAddressNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rxByteAddressNumericUpDown)).BeginInit();
             this.SuspendLayout();
-            // 
-            // terminalTextBox
-            // 
-            this.terminalTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.terminalTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.terminalTextBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.terminalTextBox.ForeColor = System.Drawing.SystemColors.Info;
-            this.terminalTextBox.Location = new System.Drawing.Point(0, 0);
-            this.terminalTextBox.Multiline = true;
-            this.terminalTextBox.Name = "terminalTextBox";
-            this.terminalTextBox.ReadOnly = true;
-            this.terminalTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.terminalTextBox.Size = new System.Drawing.Size(943, 439);
-            this.terminalTextBox.TabIndex = 0;
             // 
             // panel1
             // 
@@ -73,10 +56,8 @@
             // 
             // settingsGroupBox
             // 
-            this.settingsGroupBox.Controls.Add(this.rxKeyViewLabel);
+            this.settingsGroupBox.Controls.Add(this.enableBufferingCheckBox);
             this.settingsGroupBox.Controls.Add(this.txKeyViewLabel);
-            this.settingsGroupBox.Controls.Add(this.label3);
-            this.settingsGroupBox.Controls.Add(this.controlByteAddressNumericUpDown);
             this.settingsGroupBox.Controls.Add(this.label2);
             this.settingsGroupBox.Controls.Add(this.txByteAddressNumericUpDown);
             this.settingsGroupBox.Controls.Add(this.label1);
@@ -90,33 +71,22 @@
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Settings";
             // 
-            // label3
+            // txKeyViewLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(561, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Control byte address";
-            // 
-            // controlByteAddressNumericUpDown
-            // 
-            this.controlByteAddressNumericUpDown.Hexadecimal = true;
-            this.controlByteAddressNumericUpDown.Location = new System.Drawing.Point(552, 33);
-            this.controlByteAddressNumericUpDown.Maximum = new decimal(new int[] {
-            -1,
-            0,
-            0,
-            0});
-            this.controlByteAddressNumericUpDown.Name = "controlByteAddressNumericUpDown";
-            this.controlByteAddressNumericUpDown.Size = new System.Drawing.Size(147, 22);
-            this.controlByteAddressNumericUpDown.TabIndex = 4;
-            this.controlByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txKeyViewLabel.AutoSize = true;
+            this.txKeyViewLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txKeyViewLabel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txKeyViewLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.txKeyViewLabel.Location = new System.Drawing.Point(3, 18);
+            this.txKeyViewLabel.Name = "txKeyViewLabel";
+            this.txKeyViewLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.txKeyViewLabel.Size = new System.Drawing.Size(0, 34);
+            this.txKeyViewLabel.TabIndex = 6;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(405, 14);
+            this.label2.Location = new System.Drawing.Point(489, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 16);
             this.label2.TabIndex = 3;
@@ -125,7 +95,7 @@
             // txByteAddressNumericUpDown
             // 
             this.txByteAddressNumericUpDown.Hexadecimal = true;
-            this.txByteAddressNumericUpDown.Location = new System.Drawing.Point(386, 33);
+            this.txByteAddressNumericUpDown.Location = new System.Drawing.Point(470, 30);
             this.txByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -140,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(238, 14);
+            this.label1.Location = new System.Drawing.Point(322, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 16);
             this.label1.TabIndex = 1;
@@ -149,7 +119,7 @@
             // rxByteAddressNumericUpDown
             // 
             this.rxByteAddressNumericUpDown.Hexadecimal = true;
-            this.rxByteAddressNumericUpDown.Location = new System.Drawing.Point(222, 33);
+            this.rxByteAddressNumericUpDown.Location = new System.Drawing.Point(306, 30);
             this.rxByteAddressNumericUpDown.Maximum = new decimal(new int[] {
             -1,
             0,
@@ -161,30 +131,32 @@
             this.rxByteAddressNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.rxByteAddressNumericUpDown, "Address of byte received from CPU -> IOTerminal");
             // 
-            // txKeyViewLabel
+            // enableBufferingCheckBox
             // 
-            this.txKeyViewLabel.AutoSize = true;
-            this.txKeyViewLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.txKeyViewLabel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txKeyViewLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.txKeyViewLabel.Location = new System.Drawing.Point(3, 18);
-            this.txKeyViewLabel.Name = "txKeyViewLabel";
-            this.txKeyViewLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.txKeyViewLabel.Size = new System.Drawing.Size(0, 34);
-            this.txKeyViewLabel.TabIndex = 6;
+            this.enableBufferingCheckBox.AutoSize = true;
+            this.enableBufferingCheckBox.Checked = true;
+            this.enableBufferingCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableBufferingCheckBox.Location = new System.Drawing.Point(802, 29);
+            this.enableBufferingCheckBox.Name = "enableBufferingCheckBox";
+            this.enableBufferingCheckBox.Size = new System.Drawing.Size(129, 20);
+            this.enableBufferingCheckBox.TabIndex = 7;
+            this.enableBufferingCheckBox.Text = "Buffer Crtl+V input";
+            this.toolTip1.SetToolTip(this.enableBufferingCheckBox, "When pasting text into terminal using Ctrl+V shortcut, \r\nthe input will be buffer" +
+        "ed and printed on each new line.");
+            this.enableBufferingCheckBox.UseVisualStyleBackColor = true;
             // 
-            // rxKeyViewLabel
+            // terminalTextBox
             // 
-            this.rxKeyViewLabel.AutoSize = true;
-            this.rxKeyViewLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rxKeyViewLabel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rxKeyViewLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.rxKeyViewLabel.Location = new System.Drawing.Point(940, 18);
-            this.rxKeyViewLabel.Name = "rxKeyViewLabel";
-            this.rxKeyViewLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.rxKeyViewLabel.Size = new System.Drawing.Size(0, 34);
-            this.rxKeyViewLabel.TabIndex = 7;
-            this.rxKeyViewLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.terminalTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.terminalTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.terminalTextBox.EnableBuffering = false;
+            this.terminalTextBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.terminalTextBox.ForeColor = System.Drawing.SystemColors.Info;
+            this.terminalTextBox.Location = new System.Drawing.Point(0, 0);
+            this.terminalTextBox.Name = "terminalTextBox";
+            this.terminalTextBox.ReadOnly = true;
+            this.terminalTextBox.Size = new System.Drawing.Size(943, 439);
+            this.terminalTextBox.TabIndex = 0;
             // 
             // IOTerminal
             // 
@@ -202,7 +174,6 @@
             this.panel1.ResumeLayout(false);
             this.settingsGroupBox.ResumeLayout(false);
             this.settingsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.controlByteAddressNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txByteAddressNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rxByteAddressNumericUpDown)).EndInit();
             this.ResumeLayout(false);
@@ -212,17 +183,15 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox terminalTextBox;
+        private superscalar_arch_sim_gui.UserControls.CustomControls.TerminalTextBox terminalTextBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox settingsGroupBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown controlByteAddressNumericUpDown;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown txByteAddressNumericUpDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown rxByteAddressNumericUpDown;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label rxKeyViewLabel;
         private System.Windows.Forms.Label txKeyViewLabel;
+        private System.Windows.Forms.CheckBox enableBufferingCheckBox;
     }
 }

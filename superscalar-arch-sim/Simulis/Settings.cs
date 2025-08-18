@@ -51,7 +51,7 @@ namespace superscalar_arch_sim.Simulis
         /// <summary>Specifies if branch prediction unit shuuld be used (<see langword="true"/>) or pipeline must stall on branch instruction (<see langword="false"/>).</summary>
         public static bool BranchPredictionEnabled { get; set; } = true;
         /// <summary>Allow to specify which static prediction strategy should be used when <see cref="UseDynamicBranchPrediction"/> is set to <see langword="true".</summary>
-        public static Prediction StaticPrediction { get; set; } = Prediction.NotTaken;
+        public static Prediction StaticPrediction { get; set; } = Prediction.Taken;
         public static PredictionScheme UsedPredictionScheme { get; set; } = PredictionScheme.Static;
         public static FSMScheme UsedFMSScheme { get; set; } = FSMScheme.SaturatingCounter;
 

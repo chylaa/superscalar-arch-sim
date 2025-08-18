@@ -22,13 +22,17 @@ set "floatlib=--library-path lib\RVfplib\build\lib --library rvfp"
 
 set "src=%1"
 set "obj=%~n1.o"
-set "crt0=system\crt0.s"
-set "crt0obj=crt0.o"
-set "boot=system\boot.c"
-set "bootobj=boot.o"
+set "syscrt0=system\crt0.s"
+set "syscrt0obj=crt0.o"
+set "sysboot=system\boot.c"
+set "sysbootobj=boot.o"
+set "sysexit=system\exit.c"
+set "sysexitobj=exit.o"
 set "ldout=%~n1.elf"
 set "binoutdir=%~dp0\..\rvbin\%~n1\"	
 set "optimlvl="
+
+set exitcode=0
 setlocal enabledelayedexpansion
 
 if "!src!" == ""  ( goto :help )
@@ -54,10 +58,16 @@ for %%i in (%*) do (
         set "arg_nshow=1" 
     ) else if "!locarg!" == "--outelf" ( 
         set "arg_outelf=1" 
-    ) else if "!locarg:~0,7!" == "--link+" (
-        set "ldscript=!locarg:~7!"
     ) else if "!locarg!" == "--fplib" ( 
         set "arg_fplib=1" 
+    ) else if "!locarg!" == "--user" ( 
+        set "arg_user=1" 
+    )else if "!locarg:~0,7!" == "--link+" (
+        set "ldscript=!locarg:~7!"
+    ) else if "!locarg:~0,7!" == "--crt0+" (
+        set "syscrt0=!locarg:~7!"
+    ) else if "!locarg:~0,7!" == "--boot+" (
+        set "sysboot=!locarg:~7!"
     ) else if not !locarg! == !src! (
         if "!optimlvl!" == "" ( 
             set "invalidarg=!locarg!"
@@ -94,13 +104,18 @@ if defined compiler (
     !compiler! !optimlvl! -c !src! -o !obj! !arch! -ffreestanding -nostdlib
     if !errorlevel! neq 0 ( goto :FAIL )
     if not defined arg_noboot (
-        echo Compiling !boot! !crt0!...
-        !compiler! !optimlvl! -c !boot! -o !bootobj! !arch! -ffreestanding -nostdlib
-        !compiler! !optimlvl! -c !crt0! -o !crt0obj! !arch! -ffreestanding -nostdlib
-        echo Linking !src!, !boot!, !crt0! base on !ldscript!...
-        !link! !bootobj! !crt0obj! !obj! !ldarch! !ldargs! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
+        set "exit_define="
+        if defined arg_user (
+            set "exit_define=-D__USER_CODE"
+        )
+        echo Compiling system units !sysboot! !sysexit! !syscrt0!...
+        !compiler! !optimlvl! -c !sysboot! -o !sysbootobj! !arch! -ffreestanding -nostdlib
+        !compiler! !optimlvl! -c !sysexit! -o !sysexitobj! !arch! !exit_define! -ffreestanding -nostdlib
+        !compiler! !optimlvl! -c !syscrt0! -o !syscrt0obj! !arch! -ffreestanding -nostdlib
+        echo Linking !src!, !sysboot!, !sysexit!, !syscrt0! base on !ldscript!...
+        !link! !sysbootobj! !sysexitobj! !syscrt0obj! !obj! !ldarch! !ldargs! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
     ) else (
-        echo Linking !src! base on !ldscript!...
+        echo Linking !src! wihout system code, base on !ldscript!...
         !link! !obj! !ldarch! !ldargs! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
     )
     goto :ERRLVL
@@ -124,6 +139,7 @@ goto :EOFEXIT
 if !errorlevel! neq 0 (
 :FAIL
     echo Error: Compilation failed.
+    set exitcode=1
     goto :clean
 )
 
@@ -197,8 +213,9 @@ if not defined arg_nclean (
 
 
 :EOFEXIT
+echo Finished with code %exitcode%
 endlocal
-exit /b
+exit %exitcode%
 
 :argunknown
     echo: Unknown argument passed: !invalidarg!
@@ -212,6 +229,8 @@ exit /b
     echo     optimize: [optional] optimization level for ".c" files, (-O0, -O1, -O2, -O3, -Os, -Oz, -Ofast)
     echo:
     echo    --link+  : use specified linker script. Default is "--link+!ldscript!"
+    echo    --crt0+  : use specified c runtime asm file. Default is "--crt0+!syscrt0!"
+    echo    --boot+  : use specified boot soruce code. Default is "--boot+!sysboot!"
     echo:
     echo    --nclean : do not clean intermediate files
     echo    --nodasm : do not disassemble the elf file
@@ -220,5 +239,6 @@ exit /b
     echo    --nodata : do not create separate "*.data" file - append .data section to eof "*.text"
     echo    --outelf : copy intermediate output "*.elf" file to out directory before removing it
     echo    --fplib  : link with "RVfplib" optimized for performance, floating-point library
+    echo    --user   : defines the "__USER_CODE" macro - the simlib exit function will return to caller  
     echo    --help   : show this message and exit
     goto :EOFEXIT

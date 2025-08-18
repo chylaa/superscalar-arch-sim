@@ -164,6 +164,9 @@
     <Compile Include="UserControls\CustomControls\ReservationStationsViewNonGenericParent.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UserControls\CustomControls\TerminalTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\CustomControls\ToolStripNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>

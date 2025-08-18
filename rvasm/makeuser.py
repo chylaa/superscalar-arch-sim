@@ -8,8 +8,8 @@ import os
 import re
 
 MAKE_BAT_SCRIPT:str = "make.bat"
-MAKE_BAT_FLAGS:'list[str]' = ["--nodata"]
 LINKER_FILE:str = "userlink.ld"
+MAKE_BAT_FLAGS:'list[str]' = ["--nodata", "--user", f"--link+{LINKER_FILE}"]
 PROGRAM_ORIGIN_REGEX:re.Pattern = re.compile(r"(__program_origin\s*=\s*)(0x[0-9A-Fa-f]+)(\s*;.*)")
 OUTPUT_DIR:str = os.path.join(os.path.dirname(__file__), "..", "rvbin")
 OUTPUT_MAP_FILE_EXT:str = ".map"
@@ -48,11 +48,11 @@ def overwrite_program_origin(new_addr:int) -> None:
 
 def run_make(file:str, make_args:list) -> None:
     """Run make.bat with given arguments."""
-    cmd = [MAKE_BAT_SCRIPT, file, f"--link+{LINKER_FILE}"]
-    if MAKE_BAT_FLAGS:
-        cmd.extend(MAKE_BAT_FLAGS)
+    cmd = [MAKE_BAT_SCRIPT, file]
     if make_args:
         cmd.extend(make_args)
+    if MAKE_BAT_FLAGS:
+        cmd.extend(MAKE_BAT_FLAGS)
     print("Running:", " ".join(cmd))
     subprocess.check_call(cmd, shell=True)
 

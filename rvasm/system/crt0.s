@@ -12,6 +12,9 @@ _reset:
     /* Placeholder for boot.c or other startup code to copy initialized data */
 
 _start:
+    /* Save potential calling code stack pointer and return address */
+    mv s0, sp
+    mv s1, ra
 	/* Init stack pointer */ 
     lui sp, %hi(__glob_stack_ptr$)
     addi sp, sp, %lo(__glob_stack_ptr$)
@@ -21,9 +24,13 @@ _start:
     /* Jump to main */
 .extern main
     call main
-/* Force simulator-specific ebreak exception */
-    ebreak
-/*Sanity no-ops so EBREAK will def. have chance to be detected*/
+    /*  Restore potential calling code stack pointer and return address */
+    mv sp, s0
+    mv ra, s1
+/* Jump to simlib exit routine */
+.extern exit
+    jal x0, exit
+/*Sanity no-ops */
     nop
     nop
     nop

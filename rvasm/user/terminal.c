@@ -7,7 +7,7 @@
 #define TERMINAL_MAX_CHAR 0x7F
 
 typedef enum { 
-    CC_BACKSPACE = 0x08,
+    CC_BACKSPACE = '\b',
     CC_RETURN = '\r',
     CC_ESCAPE = '\e',
     CC_LINEFEED = '\n',
@@ -18,18 +18,17 @@ static const char* promptstr = "> ";
 static char cbuffer[RX_BUFFER_SIZE] = {0};
 static char* bufferptr = cbuffer;
 
+static uint32_t received_chars = 0;
+
 int terminal_get_echo_char() {
     int received = getc();
-    int isascii = received <= TERMINAL_MAX_CHAR;
-    if (isascii) {
-        return putc(received);
-    }
-    return IO_ERROR;
+    ++received_chars;
+    return putc(received);
 }
 
-void print_address(uint32_t addr) {
+void print_uint32(uint32_t value) {
     static char buffer[8+1];
-    puts(u32tohex(addr, buffer));
+    puts(u32tohex(value, buffer));
 } 
 
 void exec_read(uint8_t* start, const uint8_t* end) {
@@ -61,8 +60,11 @@ uint32_t exec_write(uint8_t* dest, const char* values) {
 }
 
 void exec_run(uint32_t startaddr) {
-    void (*userprogram)(void) = (void (*)())startaddr;
-    userprogram();
+    int32_t (*userprogram)(void) = (int32_t (*)())startaddr;
+    int32_t retcode = userprogram();
+    puts("\n[EXIT: ");
+    print_uint32(retcode);
+    putc(']');
 }
 
 int is_address_char(char c) { 
@@ -92,11 +94,12 @@ char* exec_command(char* buffer) {
     uint32_t endaddr = 0;
     hextou32(endstr, (p - endstr) - 1, &endaddr);
     
-    print_address(startaddr); putc(':');
+    print_uint32(startaddr); putc(':');
     
     if (*endstr == 'R') {
         putc(CC_LINEFEED);
         exec_run(startaddr);
+        *p = '\0'; // force end of a command
     }
     else if (funcchar == ':') {
         endaddr = exec_write((uint8_t*)startaddr, endstr);

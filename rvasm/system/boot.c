@@ -6,9 +6,10 @@
     void _boot_initdata() {
         uint32_t* rom = &_program_end;
         uint32_t* ram = &_sdata;
-
-        while (ram < &_edata) {
-            *ram++ = *rom++;
+        if (rom != ram) {
+            while (ram < &_edata) {
+                *ram++ = *rom++;
+            }
         }
         ram = &_sbss;
         while (ram < &_ebss) {
