@@ -90,10 +90,11 @@ char* exec_command(char* buffer) {
     const char* endstr = p;  
     hextou32(buffer, (p - buffer) - 1, &startaddr);
     
-    while (is_address_char(*p++));
     uint32_t endaddr = 0;
-    hextou32(endstr, (p - endstr) - 1, &endaddr);
-    
+    if (funcchar == '.') {
+        while (is_address_char(*p++));
+        hextou32(endstr, (p - endstr) - 1, &endaddr);
+    }
     print_uint32(startaddr); putc(':');
     
     if (*endstr == 'R') {
@@ -134,6 +135,7 @@ int main(void) {
         }
         else if (c == CC_LINEFEED) {
             buffer[buffer_size] = '\0';
+            buffer[buffer_size + 1] = '\0'; // "bugfix" ..
             char* p = buffer;
             while(*(p = exec_command(p)));
             buffer[buffer_size = 0] = '\0'; // "free" buffer

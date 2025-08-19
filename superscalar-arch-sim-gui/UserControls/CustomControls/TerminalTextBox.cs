@@ -105,6 +105,8 @@ namespace superscalar_arch_sim_gui.UserControls.CustomControls
             if (insertPos < TextLength)
             {
                 Text = Text.Remove(insertPos, 1).Insert(insertPos, c.ToString());
+                SelectionStart = TextLength;
+                ScrollToCaret();
             } 
             else
             {
