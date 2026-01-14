@@ -21,15 +21,30 @@ SECTIONS
     {   
         KEEP(*(.reset_vector)); /* not used now */
         KEEP(*(.boot_initdata));
+
+        _preinit_array_start = .;
+        KEEP(*(.preinit_array))
+        _preinit_array_end = .;
+        
+        _init_array_start = .;
+        KEEP(*(.init_array))
+        _init_array_end = .;
+
+        _fini_array_start = .;
+        KEEP(*(.fini_array))
+        _fini_array_end = .;
+
         *(.text .text.*);
         . = . + (__wordsize * __nop_pad_size); /* Add padding words between .text and .rodata, so cpu will not speculate over .rodata before EBREAK */
         LONG(0x00100073) /* Single failsafe EBREAK instruction (LE) so .data section will not be accessed by accident */
+        
         _srodata = .;
         *(.srodata .srodata.*);
         *(.rodata .rodata.* ); 
         . = ALIGN(4); /* Allign used .edata to 4-byte boundary */
         _erodata = .;
         _program_end = .;
+        
     } > RAM =0x13000000 /* Fill with NOP's (LE), so padding will be properly set */
     
     .data :

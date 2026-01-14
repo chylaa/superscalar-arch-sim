@@ -10,6 +10,8 @@ set "disasm=C:\SysGCC\risc-v\bin\riscv64-unknown-elf-objdump.exe"
 set "objcopy=C:\SysGCC\risc-v\bin\riscv64-unknown-elf-objcopy.exe"
 set "addr2line=C:\SysGCC\risc-v\bin\riscv64-unknown-elf-addr2line.exe"
 
+set "gcccompflags=-ffreestanding -nostdlib"
+set "gppcompflags=-ffreestanding -nostdlib -fno-unwind-tables -fno-exceptions -fno-rtti"
 set "ldscript=simlink.ld"
 set "ldargs"=--export-dynamic --no-strip-discarded" 
 set "ldarch=-A riscv:rv32im"
@@ -62,7 +64,7 @@ for %%i in (%*) do (
         set "arg_fplib=1" 
     ) else if "!locarg!" == "--user" ( 
         set "arg_user=1" 
-    )else if "!locarg:~0,7!" == "--link+" (
+    ) else if "!locarg:~0,7!" == "--link+" (
         set "ldscript=!locarg:~7!"
     ) else if "!locarg:~0,7!" == "--crt0+" (
         set "syscrt0=!locarg:~7!"
@@ -92,16 +94,18 @@ if defined arg_fplib (
 
 if "!src:~-2!" == ".c" (
     set "compiler=!gcc!"
+    set "compilerflags=!gcccompflags!"
 )
 if "!src:~-4!" == ".cpp" (
     set "compiler=!gpp!"
+    set "compilerflags=!gppcompflags!"
 )
 
 : if given src is .c file
 if defined compiler (
     echo Compiling !src! with !compiler!...
 
-    !compiler! !optimlvl! -c !src! -o !obj! !arch! -ffreestanding -nostdlib
+    !compiler! !optimlvl! -c !src! -o !obj! !arch! !compilerflags!
     if !errorlevel! neq 0 ( goto :FAIL )
     if not defined arg_noboot (
         set "exit_define="
@@ -109,9 +113,9 @@ if defined compiler (
             set "exit_define=-D__USER_CODE"
         )
         echo Compiling system units !sysboot! !sysexit! !syscrt0!...
-        !compiler! !optimlvl! -c !sysboot! -o !sysbootobj! !arch! -ffreestanding -nostdlib
-        !compiler! !optimlvl! -c !sysexit! -o !sysexitobj! !arch! !exit_define! -ffreestanding -nostdlib
-        !compiler! !optimlvl! -c !syscrt0! -o !syscrt0obj! !arch! -ffreestanding -nostdlib
+        !compiler! !optimlvl! -c !sysboot! -o !sysbootobj! !arch! !compilerflags!
+        !compiler! !optimlvl! -c !sysexit! -o !sysexitobj! !arch! !exit_define! !compilerflags!
+        !compiler! !optimlvl! -c !syscrt0! -o !syscrt0obj! !arch! !compilerflags!
         echo Linking !src!, !sysboot!, !sysexit!, !syscrt0! base on !ldscript!...
         !link! !sysbootobj! !sysexitobj! !syscrt0obj! !obj! !ldarch! !ldargs! !emulation! -o !ldout! -T !ldscript! !optionalldargs!
     ) else (

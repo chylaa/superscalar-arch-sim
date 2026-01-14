@@ -23,6 +23,21 @@ extern unsigned int _ebss;
 /* Linker script symbol - size of declared RAM memory*/
 extern unsigned int __rom_length;
 
+#ifdef __cplusplus
+
+typedef void (*ptr_func_t)();
+
+extern ptr_func_t _preinit_array_start[];
+extern ptr_func_t _preinit_array_end[];
+
+extern ptr_func_t _init_array_start[];
+extern ptr_func_t _init_array_end[];
+
+extern ptr_func_t _fini_array_start[];
+extern ptr_func_t _fini_array_end[];
+
+#endif
+
 /* NULL pointer */
 #define NULL ((void*)0)
 /* Offset of member in struct */

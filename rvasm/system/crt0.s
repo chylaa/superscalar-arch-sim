@@ -19,17 +19,19 @@ _start:
     lui sp, %hi(__glob_stack_ptr$)
     addi sp, sp, %lo(__glob_stack_ptr$)
     /* Copy initialized vars*/
-.extern _boot_initdata
-    call _boot_initdata
+.extern _boot
+    call _boot
     /* Jump to main */
 .extern main
     call main
+.extern _fini
+    call _fini
     /*  Restore potential calling code stack pointer and return address */
     mv sp, s0
     mv ra, s1
 /* Jump to simlib exit routine */
-.extern exit
-    jal x0, exit
+.extern _exit
+    jal x0, _exit
 /*Sanity no-ops */
     nop
     nop

@@ -9,7 +9,7 @@ import re
 
 MAKE_BAT_SCRIPT:str = "make.bat"
 LINKER_FILE:str = "userlink.ld"
-MAKE_BAT_FLAGS:'list[str]' = ["--nodata", "--user", f"--link+{LINKER_FILE}"]
+MAKE_BAT_FLAGS:'list[str]' = ["--nodata", "--user", "--nodasm" f"--link+{LINKER_FILE}"]
 PROGRAM_ORIGIN_REGEX:re.Pattern = re.compile(r"(__program_origin\s*=\s*)(0x[0-9A-Fa-f]+)(\s*;.*)")
 OUTPUT_DIR:str = os.path.join(os.path.dirname(__file__), "..", "rvbin")
 OUTPUT_MAP_FILE_EXT:str = ".map"
