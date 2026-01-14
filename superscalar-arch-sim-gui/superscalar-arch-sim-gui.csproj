@@ -167,6 +167,9 @@
     <Compile Include="UserControls\CustomControls\TerminalTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\CustomControls\TerminalTextBox.EscapeSequences.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\CustomControls\ToolStripNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>

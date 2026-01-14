@@ -24,6 +24,9 @@ namespace superscalar_arch_sim_gui.Forms
         private readonly CancellationTokenSource _workerCancellationTokenSource;
         private readonly ConcurrentQueue<byte> _inputQueue;
 
+        /// <summary>Number of character ctrl+v'ed into <see cref="_inputQueue"/>.</summary>
+        private uint _charactersUntilBufferReset = 0;
+
         /// <summary>Address of byte received from CPU -> IOTerminal.</summary>
         private UInt32 RxBufferAddress => (uint)rxByteAddressNumericUpDown.Value;
         /// <summary>Address of byte sent from IOTerminal -> CPU.</summary>
@@ -46,6 +49,7 @@ namespace superscalar_arch_sim_gui.Forms
             {
                 WorkerSupportsCancellation = true
             };
+            enableBufferingCheckBox.CheckedChanged += delegate { _charactersUntilBufferReset = 0; };
             _inputOutputObserver.DoWork += TermainalDoWork;
             FormClosing += IOTerminal_FormClosing;
             Shown += IOTerminal_Shown;
@@ -71,6 +75,7 @@ namespace superscalar_arch_sim_gui.Forms
             {
                 terminalTextBox.EnableBuffering = enableBufferingCheckBox.Checked;
                 string text = Clipboard.GetText().Replace(Environment.NewLine, "\n");
+                _charactersUntilBufferReset = (uint)text.Length;
                 foreach (char c in text) _inputQueue.Enqueue((byte)c);
             } 
             else
@@ -79,11 +84,6 @@ namespace superscalar_arch_sim_gui.Forms
                 if ((Keys)c == Keys.Enter) c = '\n';
                 SetTextToKeyString(txKeyViewLabel, c);
                 _inputQueue.Enqueue((byte)c);
-            }
-            if (terminalTextBox.EnableBuffering && _inputQueue.Count == 0)
-            {
-                terminalTextBox.Flush();
-                terminalTextBox.EnableBuffering = false;
             }
             e.Handled = true;
         }
@@ -97,6 +97,7 @@ namespace superscalar_arch_sim_gui.Forms
                 if (byteToSentAvaliable && cpuReady && _inputQueue.TryDequeue(out byte toSend))
                 {
                     PutCharacterAndSignalSent(toSend);
+                    CheckDisableBuffering();
                 }
                 if (IsByteToReceiveAvaliable())
                 {
@@ -113,6 +114,15 @@ namespace superscalar_arch_sim_gui.Forms
             {
                 char c = e.KeyChar;
                 textBox.WriteAtCursorPosition(c);
+            }
+        }
+
+        private void CheckDisableBuffering()
+        {
+            if (terminalTextBox.EnableBuffering && (--_charactersUntilBufferReset) == 0)
+            {
+                terminalTextBox.Flush();
+                terminalTextBox.EnableBuffering = false;
             }
         }
 

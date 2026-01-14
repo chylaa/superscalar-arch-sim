@@ -5,13 +5,14 @@ using System.Windows.Forms;
 
 namespace superscalar_arch_sim_gui.UserControls.CustomControls
 {
-    public class TerminalTextBox : TextBox
+    public partial class TerminalTextBox : TextBox
     {
         [DllImport("user32.dll")]
         static extern bool HideCaret(IntPtr hWnd);
 
         private readonly StringBuilder _buffer = new StringBuilder();
         private int _lastLineCursorPosition = 0;
+        private bool _inEscapeSequence = false;
 
         public bool EnableBuffering { get; set; } = false;
 
@@ -29,6 +30,11 @@ namespace superscalar_arch_sim_gui.UserControls.CustomControls
         /// </summary>
         public void WriteAtCursorPosition(char c)
         {
+            if (_inEscapeSequence)
+            {
+                HandleEnscapeSequenceCharacter(c);
+                return;
+            }
             switch (c)
             {
                 case '\n':
@@ -43,6 +49,10 @@ namespace superscalar_arch_sim_gui.UserControls.CustomControls
 
                 case '\b':
                     RemoveLastCharacter();
+                    break;
+
+                case '\x1b':
+                    _inEscapeSequence = true;
                     break;
 
                 default:
